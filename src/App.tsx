@@ -1,5 +1,5 @@
 export default function App() {
     return (
-        <h1>THIS IS MY APP!</h1>
+        <h1 className="text-xl font-bold">THIS IS MY APP!</h1>
     )
 }
