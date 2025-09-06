@@ -39,6 +39,7 @@
     "vite": "^5.4.19"
   },
   "dependencies": {
+    "@fontsource-variable/lexend": "^5.2.9",
     "@tailwindcss/postcss": "^4.1.13",
     "@vitejs/plugin-react": "^4.7.0",
     "electron-squirrel-startup": "^1.0.1",
