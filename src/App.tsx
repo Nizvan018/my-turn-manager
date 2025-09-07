@@ -1,7 +1,14 @@
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+
 import "@fontsource-variable/lexend";
 
 export default function App() {
     return (
-        <h1 className="text-xl font-bold">THIS IS MY APP!</h1>
+        <Router>
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+        </Router>
     )
 }

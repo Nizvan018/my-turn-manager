@@ -1,6 +1,19 @@
-import { app, BrowserWindow, session } from 'electron';
+import { app, BrowserWindow, protocol, session } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
+import "./lib/ipcHandlers";
+import fs from "fs";
+import mime from "mime";
+
+protocol.registerSchemesAsPrivileged([
+  {
+    scheme: 'media',
+    privileges: {
+      bypassCSP: true,
+      stream: true,
+    }
+  }
+]);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
@@ -34,7 +47,7 @@ const createWindow = () => {
         responseHeaders: {
           ...details.responseHeaders,
           "Content-Security-Policy": [
-            "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+            "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' media: file: data:; media-src 'self' media: file: data:"
           ]
         }
       });
@@ -52,7 +65,29 @@ const createWindow = () => {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+
+  protocol.registerStreamProtocol("media", (request, callback) => {
+    const url = request.url.replace("media://", "");
+    const decodedPath = decodeURIComponent(url);
+
+    try {
+      const stream = fs.createReadStream(decodedPath);
+
+      const mimeType = mime.getType(decodedPath) || "application/octet-stream";
+
+      callback({
+        statusCode: 200,
+        headers: { "Content-Type": mimeType },
+        data: stream,
+      });
+    } catch (err) {
+      console.error("Error al abrir archivo:", err);
+      callback({ statusCode: 500 });
+    }
+  });
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
@@ -71,5 +106,11 @@ app.on('activate', () => {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+// app.whenReady().then(() => {
+// protocol.handle("media", async (request) => {
+//   const filePath = decodeURIComponent(request.url.replace("media://", ""));
+//   const fileUrl = pathToFileURL(filePath).toString();
+
+//   return net.fetch(fileUrl);
+// });
+// });
