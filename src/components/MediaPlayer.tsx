@@ -11,6 +11,17 @@ const getMediaType = (path: string): "video" | "image" => {
 }
 
 /**
+ * Format the name of the path for the video and img html elements
+ * 
+ * @param {string} path - The file path
+ * @returns The formatted file path with media://
+ */
+const toMediaUrl = (path: string): string => {
+    const normalized = path.replace(/\\/g, "/");
+    return `media://${encodeURIComponent(normalized)}`;
+};
+
+/**
  * This component is the media player for the selected files (videos and images)
  * 
  * @returns JSX.Element
@@ -20,6 +31,7 @@ export default function MediaPlayer() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentPath = mediaPaths[currentIndex];
     const mediaType = currentPath ? getMediaType(currentPath) : null;
+    const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
     // Handle the selection of the files
     const handleSelectFiles = async () => {
@@ -31,11 +43,47 @@ export default function MediaPlayer() {
         }
     }
 
-    // Format the name of the path for the video and img html elements
-    const toMediaUrl = (path: string): string => {
-        const normalized = path.replace(/\\/g, "/");
-        return `media://${encodeURIComponent(normalized)}`;
+    // const testMediaResponse = async () => {
+    //     const url = toMediaUrl(currentPath);
+
+    //     try {
+    //         const response = await fetch(url, {
+    //             headers: {
+    //                 Range: "bytes=0-1023"
+    //             }
+    //         });
+    //         console.log("Status:", response.status);
+    //         console.log("Headers:");
+    //         for (const [key, value] of response.headers.entries()) {
+    //             console.log(`${key}: ${value}`);
+    //         }
+
+    //         const blob = await response.blob();
+    //         console.log("Blob size:", blob.size);
+    //     } catch (err) {
+    //         console.error("Error al hacer fetch:", err);
+    //     }
+    // };
+
+    // Fetch the file as a blob if the file is a video
+    const fetchVideoBlob = async (path: string) => {
+        const url = toMediaUrl(path);
+        const response = await fetch(url, {
+            headers: {
+                Range: "bytes=0-" // puedes ajustar el rango
+            }
+        });
+
+        const blob = await response.blob();
+        return URL.createObjectURL(blob);
     };
+
+    useEffect(() => {
+        if (mediaType === "video") {
+            fetchVideoBlob(currentPath).then(setVideoSrc);
+        }
+    }, [currentPath]);
+
 
     useEffect(() => {
         if (mediaPaths.length === 0) return;
@@ -62,36 +110,45 @@ export default function MediaPlayer() {
                 Seleccionar archivos
             </button>
 
-            <div className="flex flex-col gap-1">
+            {/* <div className="flex flex-col gap-1">
                 {mediaPaths.map(item => (
                     <span key={item}>{getMediaType(item)}: {toMediaUrl(item)}</span>
                 ))}
-            </div>
+            </div> */}
 
             {mediaPaths.length > 0 && (
-                <div className="w-96 h-64 border">
+                <div className="w-2/3 h-auto aspect-[16/9] border">
                     {mediaType === "video" ? (
-                        <video
-                            src={toMediaUrl(currentPath)}
-                            autoPlay
-                            controls
-                            onEnded={() => setCurrentIndex((prev) => (prev + 1) % mediaPaths.length)}
-                        >
-                            <source src={toMediaUrl(currentPath)} type="video/mp4" />
-                        </video>
+                        videoSrc && (
+                            <video
+                                key={currentPath}
+                                src={videoSrc}
+                                autoPlay
+                                loop={mediaPaths.length === 1}
+                                onEnded={() => {
+                                    if (mediaPaths.length > 1) {
+                                        setCurrentIndex((prev) => (prev + 1) % mediaPaths.length)
+                                    }
+                                }}
+                                className="w-full aspect-[16/9] object-cover"
+                            />
+                        )
                     ) : (
                         <img
                             src={toMediaUrl(currentPath)}
                             alt="media"
-                            className="w-full"
+                            className="w-full aspect-[16/9] object-cover"
                         />
                     )}
                 </div>
             )}
 
-            <video controls>
-                <source src="media://C%3A%2FUsers%2Fnizva%2FDesktop%2Ftest%20files%2Ftest.mp4" type="video/mp4" />
-            </video>
+            {/* <span>{currentPath}</span>
+            <span>{currentIndex}</span>
+
+            <button onClick={testMediaResponse}>
+                Test media response
+            </button> */}
         </div >
     )
 }

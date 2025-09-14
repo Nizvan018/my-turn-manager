@@ -4,16 +4,7 @@ import started from 'electron-squirrel-startup';
 import "./lib/ipcHandlers";
 import fs from "fs";
 import mime from "mime";
-
-protocol.registerSchemesAsPrivileged([
-  {
-    scheme: 'media',
-    privileges: {
-      bypassCSP: true,
-      stream: true,
-    }
-  }
-]);
+import { Readable } from 'stream';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
@@ -31,7 +22,8 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
-      nodeIntegration: false
+      nodeIntegration: false,
+      sandbox: false
     }
   });
 
@@ -47,7 +39,7 @@ const createWindow = () => {
         responseHeaders: {
           ...details.responseHeaders,
           "Content-Security-Policy": [
-            "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' media: file: data:; media-src 'self' media: file: data:"
+            "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' media: file: data:; media-src 'self' blob: media: file: data:"
           ]
         }
       });
@@ -62,30 +54,122 @@ const createWindow = () => {
   }
 };
 
+protocol.registerSchemesAsPrivileged([
+  {
+    scheme: "media",
+    privileges: {
+      secure: true,
+      stream: true,
+      supportFetchAPI: true,
+      bypassCSP: true
+    }
+  }
+]);
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow();
 
-  protocol.registerStreamProtocol("media", (request, callback) => {
-    const url = request.url.replace("media://", "");
-    const decodedPath = decodeURIComponent(url);
+  // protocol.registerStreamProtocol("media", (request, callback) => {
+  //   const url = request.url.replace("media://", "");
+  //   const decodedPath = decodeURIComponent(url);
 
-    try {
-      const stream = fs.createReadStream(decodedPath);
+  //   try {
+  //     const stream = fs.createReadStream(decodedPath);
 
-      const mimeType = mime.getType(decodedPath) || "application/octet-stream";
+  //     const mimeType = mime.getType(decodedPath) || "application/octet-stream";
 
-      callback({
-        statusCode: 200,
-        headers: { "Content-Type": mimeType },
-        data: stream,
+  //     callback({
+  //       statusCode: 200,
+  //       headers: { "Content-Type": mimeType },
+  //       data: stream,
+  //     });
+  //   } catch (err) {
+  //     console.error("Error al abrir archivo:", err);
+  //     callback({ statusCode: 500 });
+  //   }
+  // });
+
+  // protocol.registerStreamProtocol("media", (request, callback) => {
+  //   const filePath = decodeURIComponent(request.url.replace("media://", ""));
+  //   const stat = fs.statSync(filePath);
+  //   const totalSize = stat.size;
+  //   const mimeType = mime.getType(filePath) || "application/octet-stream";
+  //   const range = request.headers.Range || request.headers.range;
+
+  //   if (range) {
+  //     const match = range.match(/bytes=(\d*)-(\d*)/);
+  //     const start = parseInt(match?.[1] || "0", 10);
+  //     const end = match?.[2] ? parseInt(match[2], 10) : totalSize - 1;
+  //     const chunkSize = end - start + 1;
+  //     const stream = fs.createReadStream(filePath, { start, end });
+
+  //     callback({
+  //       statusCode: 206,
+  //       headers: {
+  //         "Content-Type": mimeType,
+  //         "Content-Length": chunkSize.toString(),
+  //         "Content-Range": `bytes ${start}-${end}/${totalSize}`,
+  //         "Accept-Ranges": "bytes"
+  //       },
+  //       data: stream
+  //     });
+  //   } else {
+  //     const stream = fs.createReadStream(filePath);
+  //     callback({
+  //       statusCode: 200,
+  //       headers: {
+  //         "Content-Type": mimeType,
+  //         "Content-Length": totalSize.toString(),
+  //         "Accept-Ranges": "bytes"
+  //       },
+  //       data: stream
+  //     });
+  //   }
+  // });
+
+  protocol.handle("media", async (request) => {
+    const filePath = decodeURIComponent(request.url.replace("media://", ""));
+    const stat = fs.statSync(filePath);
+    const totalSize = stat.size;
+    const mimeType = mime.getType(filePath) || "application/octet-stream";
+
+    const headers = Object.fromEntries(request.headers.entries());
+    const rangeHeader = headers.Range || headers.range;
+
+    if (rangeHeader) {
+      const match = rangeHeader.match(/bytes=(\d*)-(\d*)/);
+      const start = parseInt(match?.[1] || "0", 10);
+      const end = match?.[2] ? parseInt(match[2], 10) : totalSize - 1;
+      const chunkSize = end - start + 1;
+
+      const stream = fs.createReadStream(filePath, { start, end });
+      const webStream = Readable.toWeb(stream);
+
+      return new Response(webStream as BodyInit, {
+        status: 206,
+        headers: {
+          "Content-Type": mimeType,
+          "Content-Length": chunkSize.toString(),
+          "Content-Range": `bytes ${start}-${end}/${totalSize}`,
+          "Accept-Ranges": "bytes"
+        }
       });
-    } catch (err) {
-      console.error("Error al abrir archivo:", err);
-      callback({ statusCode: 500 });
     }
+
+    const stream = fs.createReadStream(filePath);
+    const webStream = Readable.toWeb(stream);
+
+    return new Response(webStream as BodyInit, {
+      status: 200,
+      headers: {
+        "Content-Type": mimeType,
+        "Content-Length": totalSize.toString(),
+        "Accept-Ranges": "bytes"
+      }
+    });
   });
 });
 
@@ -107,10 +191,10 @@ app.on('activate', () => {
 });
 
 // app.whenReady().then(() => {
-// protocol.handle("media", async (request) => {
-//   const filePath = decodeURIComponent(request.url.replace("media://", ""));
-//   const fileUrl = pathToFileURL(filePath).toString();
+//   protocol.handle("media", async (request) => {
+//     const filePath = decodeURIComponent(request.url.replace("media://", ""));
+//     const fileUrl = pathToFileURL(filePath).toString();
 
-//   return net.fetch(fileUrl);
-// });
+//     return net.fetch(fileUrl);
+//   });
 // });

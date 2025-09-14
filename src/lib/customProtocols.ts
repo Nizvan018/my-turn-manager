@@ -131,7 +131,7 @@ const handleCustomProtocols = (): CustomProtocolHandler => {
         const url = new URL(request.url);
         // const host = url.host;
 
-        let pathname = normalize(fileURLToPath(`file://${url.pathname}`));
+        let pathname = normalize(fileURLToPath(`media://${url.pathname}`));
 
         // See https://security.stackexchange.com/a/123723
         if (pathname.startsWith('..')) {
