@@ -1,10 +1,6 @@
 import { dialog, ipcMain } from "electron";
 import { existsSync } from "fs";
 
-export interface IpcBridge {
-    selectMediaFiles: () => Promise<string[]>;
-}
-
 /**
  * Allow to select multiple media files using dialog from electron
  */

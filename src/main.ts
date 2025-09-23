@@ -5,20 +5,45 @@ import "./lib/ipcHandlers";
 import fs from "fs";
 import mime from "mime";
 import { Readable } from 'stream';
+import { setWindowComunication } from './lib/windowCommunication';
+
+interface CreateAppWindowProps {
+  route: string,
+  title: string,
+  position: { x: number, y: number }
+}
+
+const CONTROL_DATA = {
+  route: "control",
+  title: "My Turn Manager - Panel del control",
+  position: { x: 16, y: 16 }
+}
+const CLIENT_DATA = {
+  route: "client",
+  title: "My Turn Manager - Cliente",
+  position: { x: 64, y: 64 }
+}
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
   app.quit();
 }
 
-const createWindow = () => {
+const createAppWindow = ({
+  route,
+  title,
+  position
+}: CreateAppWindowProps) => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  const appWindow = new BrowserWindow({
+    title,
     show: false,
     minWidth: 800,
     minHeight: 600,
     width: 800,
     height: 600,
+    x: position.x,
+    y: position.y,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -27,32 +52,68 @@ const createWindow = () => {
     }
   });
 
-  mainWindow.once("ready-to-show", () => {
-    mainWindow.maximize();
-    mainWindow.show();
+  appWindow.once("ready-to-show", () => {
+    // appWindow.maximize();
+    appWindow.show();
   });
-
-  // CSP for production
-  if (!MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-      callback({
-        responseHeaders: {
-          ...details.responseHeaders,
-          "Content-Security-Policy": [
-            "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' media: file: data:; media-src 'self' blob: media: file: data:"
-          ]
-        }
-      });
-    });
-  }
 
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+    appWindow.loadURL(`${MAIN_WINDOW_VITE_DEV_SERVER_URL}/#/${route}`);
   } else {
-    mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
+    appWindow.loadFile(
+      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
+      { hash: `/${route}` }
+    );
   }
+
+  console.log(`${MAIN_WINDOW_VITE_DEV_SERVER_URL}/#/${route}`);
+
+  return appWindow;
 };
+
+// const createWindow = () => {
+//   // Create the browser window.
+//   const mainWindow = new BrowserWindow({
+//     show: false,
+//     minWidth: 800,
+//     minHeight: 600,
+//     width: 800,
+//     height: 600,
+//     webPreferences: {
+//       preload: path.join(__dirname, 'preload.js'),
+//       contextIsolation: true,
+//       nodeIntegration: false,
+//       sandbox: false
+//     }
+//   });
+
+//   mainWindow.once("ready-to-show", () => {
+//     mainWindow.maximize();
+//     mainWindow.show();
+//   });
+
+//   // CSP for production
+//   if (!MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+//     session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+//       callback({
+//         responseHeaders: {
+//           ...details.responseHeaders,
+//           "Content-Security-Policy": [
+//             "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' media: file: data:; media-src 'self' blob: media: file: data:"
+//           ]
+//         }
+//       });
+//     });
+//   }
+
+//   // and load the index.html of the app.
+//   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+//     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+//   } else {
+//     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
+//   }
+// };
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -70,65 +131,24 @@ protocol.registerSchemesAsPrivileged([
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-  createWindow();
+  // CSP for production
+  if (!MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+    session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+      callback({
+        responseHeaders: {
+          ...details.responseHeaders,
+          "Content-Security-Policy": [
+            "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' media: file: data:; media-src 'self' blob: media: file: data:"
+          ]
+        }
+      });
+    });
+  }
 
-  // protocol.registerStreamProtocol("media", (request, callback) => {
-  //   const url = request.url.replace("media://", "");
-  //   const decodedPath = decodeURIComponent(url);
+  const controlWindow = createAppWindow(CONTROL_DATA);
+  const clientWindow = createAppWindow(CLIENT_DATA);
 
-  //   try {
-  //     const stream = fs.createReadStream(decodedPath);
-
-  //     const mimeType = mime.getType(decodedPath) || "application/octet-stream";
-
-  //     callback({
-  //       statusCode: 200,
-  //       headers: { "Content-Type": mimeType },
-  //       data: stream,
-  //     });
-  //   } catch (err) {
-  //     console.error("Error al abrir archivo:", err);
-  //     callback({ statusCode: 500 });
-  //   }
-  // });
-
-  // protocol.registerStreamProtocol("media", (request, callback) => {
-  //   const filePath = decodeURIComponent(request.url.replace("media://", ""));
-  //   const stat = fs.statSync(filePath);
-  //   const totalSize = stat.size;
-  //   const mimeType = mime.getType(filePath) || "application/octet-stream";
-  //   const range = request.headers.Range || request.headers.range;
-
-  //   if (range) {
-  //     const match = range.match(/bytes=(\d*)-(\d*)/);
-  //     const start = parseInt(match?.[1] || "0", 10);
-  //     const end = match?.[2] ? parseInt(match[2], 10) : totalSize - 1;
-  //     const chunkSize = end - start + 1;
-  //     const stream = fs.createReadStream(filePath, { start, end });
-
-  //     callback({
-  //       statusCode: 206,
-  //       headers: {
-  //         "Content-Type": mimeType,
-  //         "Content-Length": chunkSize.toString(),
-  //         "Content-Range": `bytes ${start}-${end}/${totalSize}`,
-  //         "Accept-Ranges": "bytes"
-  //       },
-  //       data: stream
-  //     });
-  //   } else {
-  //     const stream = fs.createReadStream(filePath);
-  //     callback({
-  //       statusCode: 200,
-  //       headers: {
-  //         "Content-Type": mimeType,
-  //         "Content-Length": totalSize.toString(),
-  //         "Accept-Ranges": "bytes"
-  //       },
-  //       data: stream
-  //     });
-  //   }
-  // });
+  setWindowComunication(clientWindow);
 
   protocol.handle("media", async (request) => {
     const filePath = decodeURIComponent(request.url.replace("media://", ""));
@@ -186,15 +206,7 @@ app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
+    const controlWindow = createAppWindow(CONTROL_DATA);
+    const clientWindow = createAppWindow(CLIENT_DATA);
   }
 });
-
-// app.whenReady().then(() => {
-//   protocol.handle("media", async (request) => {
-//     const filePath = decodeURIComponent(request.url.replace("media://", ""));
-//     const fileUrl = pathToFileURL(filePath).toString();
-
-//     return net.fetch(fileUrl);
-//   });
-// });

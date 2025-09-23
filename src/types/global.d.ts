@@ -1,4 +1,4 @@
-import type { IpcBridge } from "../lib/ipcHandlers";
+import type { IpcBridge } from "../types/ipcBridge";
 
 declare global {
     interface Window {

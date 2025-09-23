@@ -34,14 +34,14 @@ export default function MediaPlayer() {
     const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
     // Handle the selection of the files
-    const handleSelectFiles = async () => {
-        const paths = await window.utils.selectMediaFiles();
+    // const handleSelectFiles = async () => {
+    //     const paths = await window.utils.selectMediaFiles();
 
-        if (paths.length > 0) {
-            setMediaPaths(paths);
-            setCurrentIndex(0);
-        }
-    }
+    //     if (paths.length > 0) {
+    //         setMediaPaths(paths);
+    //         setCurrentIndex(0);
+    //     }
+    // }
 
     // const testMediaResponse = async () => {
     //     const url = toMediaUrl(currentPath);
@@ -101,14 +101,25 @@ export default function MediaPlayer() {
         return () => clearTimeout(timer);
     }, [currentIndex, mediaPaths]);
 
+    useEffect(() => {
+        window.utils.updatePaths((paths) => {
+            setMediaPaths(paths);
+            setCurrentIndex(0);
+        });
+
+        return () => {
+            window.utils.removeAllListeners("utils:updatePaths");
+        }
+    }, []);
+
     return (
         <div className="flex flex-col items-start gap-4 p-4">
-            <button
+            {/* <button
                 onClick={handleSelectFiles}
                 className="text-white p-2 bg-blue-500"
             >
                 Seleccionar archivos
-            </button>
+            </button> */}
 
             {/* <div className="flex flex-col gap-1">
                 {mediaPaths.map(item => (
