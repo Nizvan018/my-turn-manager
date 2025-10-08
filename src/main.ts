@@ -5,7 +5,7 @@ import "./lib/ipcHandlers";
 import fs from "fs";
 import mime from "mime";
 import { Readable } from 'stream';
-import { setWindowComunication } from './lib/windowCommunication';
+import { setWindowCommunication } from './lib/windowCommunication';
 
 interface CreateAppWindowProps {
   route: string,
@@ -148,7 +148,7 @@ app.on('ready', () => {
   const controlWindow = createAppWindow(CONTROL_DATA);
   const clientWindow = createAppWindow(CLIENT_DATA);
 
-  setWindowComunication(clientWindow);
+  setWindowCommunication(clientWindow);
 
   protocol.handle("media", async (request) => {
     const filePath = decodeURIComponent(request.url.replace("media://", ""));

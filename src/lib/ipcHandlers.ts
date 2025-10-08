@@ -1,5 +1,6 @@
 import { dialog, ipcMain } from "electron";
 import { existsSync } from "fs";
+import { saveMediaPaths, loadMediaPaths } from "./storage";
 
 /**
  * Allow to select multiple media files using dialog from electron
@@ -18,4 +19,18 @@ ipcMain.handle("utils:selectMediaFiles", async () => {
     const validPaths = filePaths.filter((path) => existsSync(path));
 
     return canceled ? [] : validPaths;
+});
+
+/**
+ * Allow to save the media paths with electron-storage
+ */
+ipcMain.handle("utils:saveMediaPaths", (_event, paths: string[]) => {
+    return saveMediaPaths(paths);
+});
+
+/**
+ * Allow to load the saved media paths with electron-storage
+ */
+ipcMain.handle("utils:loadMediaPaths", () => {
+    return loadMediaPaths();
 });
