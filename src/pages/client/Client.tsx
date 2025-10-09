@@ -1,4 +1,5 @@
-import MediaPlayer from "../../components/MediaPlayer"
+import TurnsSection from "../../components/client/TurnsSection"
+// import MediaPlayer from "../../components/MediaPlayer"
 
 /**
  * Client page of the client window
@@ -8,8 +9,9 @@ import MediaPlayer from "../../components/MediaPlayer"
  */
 export default function Home() {
     return (
-        <main>
-            <MediaPlayer />
+        <main className="flex gap-6 p-6 w-full h-screen">
+            <TurnsSection />
+            {/* <MediaPlayer /> */}
         </main>
     )
 }
