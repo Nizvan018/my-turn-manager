@@ -1,5 +1,6 @@
 import TurnsSection from "../../components/client/TurnsSection";
 import MediaPlayer from "../../components/client/MediaPlayer";
+import BannerSection from "../../components/client/BannerSection";
 
 /**
  * Client page of the client window
@@ -13,6 +14,8 @@ export default function Home() {
             <TurnsSection />
 
             <div className="flex flex-col gap-6 w-full h-full">
+                <BannerSection />
+
                 <MediaPlayer />
             </div>
         </main>

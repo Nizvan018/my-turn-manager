@@ -11,7 +11,7 @@ const waitingTurns = ["A2", "A3", "A4", "A5", "A6", "A7"];
  */
 export default function TurnsSection() {
     return (
-        <section className="overflow-y-hidden flex flex-col gap-6 w-full max-w-[420px] h-full p-6 rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
+        <section className="overflow-y-hidden flex flex-col gap-6 w-full max-w-[400px] h-full p-6 rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
             <SelectedTurn turn="A1" />
 
             <div className="flex items-center gap-4">

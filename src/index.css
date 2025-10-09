@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+    /* BLUE COLOR */
     --color-curious-blue-50: #f1f9fe;
     --color-curious-blue-100: #e2f2fc;
     --color-curious-blue-200: #bfe4f8;
@@ -12,9 +13,22 @@
     --color-curious-blue-800: #11567b;
     --color-curious-blue-900: #144866;
     --color-curious-blue-950: #0d2e44;
+
+    /* PINK COLOR */
+    --color-brilliant-rose-50: #fdf2f9;
+    --color-brilliant-rose-100: #fbe8f4;
+    --color-brilliant-rose-200: #f9d1eb;
+    --color-brilliant-rose-300: #f6abd9;
+    --color-brilliant-rose-400: #ef77bf;
+    --color-brilliant-rose-500: #e64ea4;
+    --color-brilliant-rose-600: #d42e84;
+    --color-brilliant-rose-700: #b81e69;
+    --color-brilliant-rose-800: #981c57;
+    --color-brilliant-rose-900: #7f1c4b;
+    --color-brilliant-rose-950: #4d0a2a;
 }
 
 body {
     font-family: 'Lexend Variable', sans-serif;
-    background: linear-gradient(to right, var(--color-curious-blue-100), white);
+    background: linear-gradient(to right, var(--color-curious-blue-100), white 35%);
 }
