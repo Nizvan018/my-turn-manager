@@ -33,38 +33,6 @@ export default function MediaPlayer() {
     const mediaType = currentPath ? getMediaType(currentPath) : null;
     const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
-    // Handle the selection of the files
-    // const handleSelectFiles = async () => {
-    //     const paths = await window.utils.selectMediaFiles();
-
-    //     if (paths.length > 0) {
-    //         setMediaPaths(paths);
-    //         setCurrentIndex(0);
-    //     }
-    // }
-
-    // const testMediaResponse = async () => {
-    //     const url = toMediaUrl(currentPath);
-
-    //     try {
-    //         const response = await fetch(url, {
-    //             headers: {
-    //                 Range: "bytes=0-1023"
-    //             }
-    //         });
-    //         console.log("Status:", response.status);
-    //         console.log("Headers:");
-    //         for (const [key, value] of response.headers.entries()) {
-    //             console.log(`${key}: ${value}`);
-    //         }
-
-    //         const blob = await response.blob();
-    //         console.log("Blob size:", blob.size);
-    //     } catch (err) {
-    //         console.error("Error al hacer fetch:", err);
-    //     }
-    // };
-
     // Fetch the file as a blob if the file is a video
     const fetchVideoBlob = async (path: string) => {
         const url = toMediaUrl(path);
@@ -113,22 +81,9 @@ export default function MediaPlayer() {
     }, []);
 
     return (
-        <div className="flex flex-col items-start gap-4 p-4">
-            {/* <button
-                onClick={handleSelectFiles}
-                className="text-white p-2 bg-blue-500"
-            >
-                Seleccionar archivos
-            </button> */}
-
-            {/* <div className="flex flex-col gap-1">
-                {mediaPaths.map(item => (
-                    <span key={item}>{getMediaType(item)}: {toMediaUrl(item)}</span>
-                ))}
-            </div> */}
-
+        <section className="overflow-hidden w-full h-auto aspect-[16/9] rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
             {mediaPaths.length > 0 && (
-                <div className="w-2/3 h-auto aspect-[16/9] border">
+                <div className="w-full h-full">
                     {mediaType === "video" ? (
                         videoSrc && (
                             <video
@@ -153,13 +108,6 @@ export default function MediaPlayer() {
                     )}
                 </div>
             )}
-
-            {/* <span>{currentPath}</span>
-            <span>{currentIndex}</span>
-
-            <button onClick={testMediaResponse}>
-                Test media response
-            </button> */}
-        </div >
+        </section >
     )
 }
