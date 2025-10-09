@@ -38,10 +38,10 @@ const createAppWindow = ({
   const appWindow = new BrowserWindow({
     title,
     show: false,
-    minWidth: 800,
-    minHeight: 600,
-    width: 800,
-    height: 600,
+    minWidth: 1080,
+    minHeight: 720,
+    width: 1080,
+    height: 720,
     x: position.x,
     y: position.y,
     webPreferences: {
@@ -71,49 +71,6 @@ const createAppWindow = ({
 
   return appWindow;
 };
-
-// const createWindow = () => {
-//   // Create the browser window.
-//   const mainWindow = new BrowserWindow({
-//     show: false,
-//     minWidth: 800,
-//     minHeight: 600,
-//     width: 800,
-//     height: 600,
-//     webPreferences: {
-//       preload: path.join(__dirname, 'preload.js'),
-//       contextIsolation: true,
-//       nodeIntegration: false,
-//       sandbox: false
-//     }
-//   });
-
-//   mainWindow.once("ready-to-show", () => {
-//     mainWindow.maximize();
-//     mainWindow.show();
-//   });
-
-//   // CSP for production
-//   if (!MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-//     session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
-//       callback({
-//         responseHeaders: {
-//           ...details.responseHeaders,
-//           "Content-Security-Policy": [
-//             "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' media: file: data:; media-src 'self' blob: media: file: data:"
-//           ]
-//         }
-//       });
-//     });
-//   }
-
-//   // and load the index.html of the app.
-//   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-//     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
-//   } else {
-//     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
-//   }
-// };
 
 protocol.registerSchemesAsPrivileged([
   {
