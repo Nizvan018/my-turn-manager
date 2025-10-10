@@ -32,3 +32,48 @@ body {
     font-family: 'Lexend Variable', sans-serif;
     background: linear-gradient(to right, var(--color-curious-blue-100), white 35%);
 }
+
+@layer components {
+    .btn-primary {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        color: var(--color-curious-blue-600);
+        padding: 24px;
+        border-radius: 100px;
+        border: 1px solid rgb(from var(--color-curious-blue-600) r g b / 0.1);
+        background-color: rgb(from var(--color-curious-blue-600) r g b / 0.05);
+        backdrop-filter: blur(8px);
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            @media (hover: hover) {
+                border: 1px solid rgb(from var(--color-curious-blue-600) r g b / 0.15);
+                background-color: rgb(from var(--color-curious-blue-600) r g b / 0.08);
+            }
+        }
+    }
+
+    .btn-secondary {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 24px;
+        border-radius: 100px;
+        border: 1px solid rgb(from var(--color-curious-blue-950) r g b / 0.1);
+        background-color: rgb(from var(--color-curious-blue-950) r g b / 0.05);
+        backdrop-filter: blur(8px);
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            @media (hover: hover) {
+                border: 1px solid rgb(from var(--color-curious-blue-950) r g b / 0.15);
+                background-color: rgb(from var(--color-curious-blue-950) r g b / 0.1);
+            }
+        }
+    }
+}

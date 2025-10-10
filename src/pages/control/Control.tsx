@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import TurnsSection from "../../components/control/TurnSection";
 
 /**
  * Control page of the control window
@@ -34,21 +35,8 @@ export default function Control() {
     }, []);
 
     return (
-        <div className="flex flex-col gap-4">
-            <h1>Esta es la página de control</h1>
-
-            <div className="flex flex-col gap-1">
-                {paths.map(path => (
-                    <span>{path}</span>
-                ))}
-            </div>
-
-            <button
-                onClick={handleSelectFiles}
-                className="text-white p-2 bg-blue-500"
-            >
-                Seleccionar archivos
-            </button>
+        <div className="flex gap-6 p-6 w-full h-screen">
+            <TurnsSection />
         </div>
     )
 }
