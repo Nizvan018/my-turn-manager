@@ -6,7 +6,7 @@ import { History, Settings, Plus } from "lucide-react";
 const waitingTurns = ["A2", "A3", "A4", "A5", "A6", "A7"];
 
 /**
- * Turn queue section for the client
+ * Turn queue section for the control window
  * 
  * @returns JSX.Element
  */
@@ -43,7 +43,7 @@ export default function TurnsSection() {
                 </div>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 w-full">
                 <button className="btn-secondary w-fit">
                     <span className="font-medium">Historial</span>
                     <History className="size-5" />
