@@ -4,6 +4,11 @@ const exampleData = {
     title: "¡Bienvenido a Papelería Quiquitos!"
 }
 
+/**
+ * The banner section of the client window
+ * 
+ * @returns JSX.Element
+ */
 export default function BannerSection() {
     return (
         <section className="flex gap-6 w-full grow">
