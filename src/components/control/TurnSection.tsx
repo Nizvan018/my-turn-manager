@@ -19,9 +19,9 @@ export default function TurnsSection() {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <div className="w-full h-px bg-curious-blue-950/60"></div>
+                    <div className="w-full h-px bg-curious-blue-950/30"></div>
                     <span className="text-nowrap text-curious-blue-950/60 font-light">En espera</span>
-                    <div className="w-full h-px bg-curious-blue-950/60"></div>
+                    <div className="w-full h-px bg-curious-blue-950/30"></div>
                 </div>
 
                 <div className="flex flex-col gap-6">
