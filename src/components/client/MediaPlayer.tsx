@@ -1,25 +1,5 @@
 import { useEffect, useState } from "react";
-
-/**
- * Get the type of the file (image or video)
- * 
- * @param {string} path - The path of the file
- * @returns The type of the file (image or video)
- */
-const getMediaType = (path: string): "video" | "image" => {
-    return /\.(mp4|mov|webm)$/i.test(path) ? "video" : "image";
-}
-
-/**
- * Format the name of the path for the video and img html elements
- * 
- * @param {string} path - The file path
- * @returns The formatted file path with media://
- */
-const toMediaUrl = (path: string): string => {
-    const normalized = path.replace(/\\/g, "/");
-    return `media://${encodeURIComponent(normalized)}`;
-};
+import { getMediaType, toMediaUrl } from "../../lib/mediaHelpers";
 
 /**
  * This component is the media player for the selected files (videos and images)

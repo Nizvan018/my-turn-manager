@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { FileVideoCamera, SkipBack, Play, SkipForward, Volume1 } from "lucide-react";
+import { getCountOfMediaTypes } from "../../lib/mediaHelpers";
 
 /**
  * The media controller component for the control window
@@ -6,6 +8,33 @@ import { FileVideoCamera, SkipBack, Play, SkipForward, Volume1 } from "lucide-re
  * @returns JSX.Element
  */
 export default function MediaController() {
+    const [paths, setPaths] = useState<string[]>([]);
+    const { imageCount, videoCount } = getCountOfMediaTypes(paths);
+
+    // Handle the media file selection
+    const handleSelectFiles = async () => {
+        const paths = await window.utils.selectMediaFiles();
+
+        if (paths.length > 0) {
+            window.utils.sendPaths(paths);
+        }
+
+        setPaths(paths);
+        await window.utils.saveMediaPaths(paths);
+    }
+
+    // Load the saved media paths
+    const getSavedMediaPaths = async () => {
+        const paths = await window.utils.loadMediaPaths();
+        setPaths(paths);
+
+        window.utils.sendPaths(paths);
+    }
+
+    useEffect(() => {
+        getSavedMediaPaths();
+    }, []);
+
     return (
         <section className="overflow-hidden flex flex-col items-center gap-4 w-full h-auto aspect-[16/9] p-6 rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
             <h2 className="text-curious-blue-950/60 font-light">Configuración del reproductor</h2>
@@ -14,7 +43,10 @@ export default function MediaController() {
             <div className="flex flex-col gap-8 w-[420px] h-full p-6 rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5">
                 {/* HEADER */}
                 <header className="flex flex-col items-center gap-4">
-                    <button className="btn-primary w-full">
+                    <button
+                        onClick={handleSelectFiles}
+                        className="btn-primary w-full"
+                    >
                         <span className="text-lg font-medium">Seleccionar videos/imágenes</span>
                         <FileVideoCamera className="size-6" />
                     </button>
@@ -24,17 +56,17 @@ export default function MediaController() {
                     <div className="flex justify-center items-center gap-6 w-full">
                         <div className="flex flex-col items-center gap-1 w-20">
                             <span className="text-curious-blue-950/60 text-sm">Total</span>
-                            <span className="font-medium">0</span>
+                            <span className="font-medium">{paths.length}</span>
                         </div>
                         <div className="w-px h-full bg-curious-blue-950/30"></div>
                         <div className="flex flex-col items-center gap-1 w-20">
                             <span className="text-curious-blue-950/60 text-sm">Videos</span>
-                            <span className="font-medium">0</span>
+                            <span className="font-medium">{videoCount}</span>
                         </div>
                         <div className="w-px h-full bg-curious-blue-950/30"></div>
                         <div className="flex flex-col items-center gap-1 w-20">
                             <span className="text-curious-blue-950/60 text-sm">Imágenes</span>
-                            <span className="font-medium">0</span>
+                            <span className="font-medium">{imageCount}</span>
                         </div>
                     </div>
                 </header>
