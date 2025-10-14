@@ -5,15 +5,16 @@ import { contextBridge, ipcRenderer } from "electron";
 import type { IpcBridge } from "./types/ipcBridge";
 
 const bridge: IpcBridge = {
-    // Paths
-    selectMediaFiles: () => ipcRenderer.invoke("utils:selectMediaFiles"),
-    // Path listeners
-    sendPaths: (paths: string[]) => ipcRenderer.send("utils:sendPaths", paths),
-    updatePaths: (callback) => ipcRenderer.on("utils:updatePaths", (_event, paths) => callback(paths)),
-    removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),
-    // Electron store
+    // Media file operations
     saveMediaPaths: (paths) => ipcRenderer.invoke("utils:saveMediaPaths", paths),
-    loadMediaPaths: () => ipcRenderer.invoke("utils:loadMediaPaths")
+    loadMediaPaths: () => ipcRenderer.invoke("utils:loadMediaPaths"),
+    selectMediaFiles: () => ipcRenderer.invoke("utils:selectMediaFiles"),
+    // Window file communication
+    sendMediaState: (state) => ipcRenderer.send("utils:sendMediaState", state),
+    onMediaStateUpdate: (callback) => ipcRenderer.on("utils:onMediaStateUpdate", (_event, state) => callback(state)),
+    notifyMediaEnded: () => ipcRenderer.send("utils:notifyMediaEnded"),
+    onMediaEnded: (callback) => ipcRenderer.on("utils:onMediaEnded", callback),
+    removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),
 }
 
 contextBridge.exposeInMainWorld("utils", bridge);

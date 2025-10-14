@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getMediaType, toMediaUrl } from "../../lib/mediaHelpers";
+import { MediaState } from "../../types/mediaState.type";
 
 /**
  * This component is the media player for the selected files (videos and images)
@@ -7,18 +8,25 @@ import { getMediaType, toMediaUrl } from "../../lib/mediaHelpers";
  * @returns JSX.Element
  */
 export default function MediaPlayer() {
-    const [mediaPaths, setMediaPaths] = useState<string[]>([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const currentPath = mediaPaths[currentIndex];
-    const mediaType = currentPath ? getMediaType(currentPath) : null;
+    const [mediaState, setMediaState] = useState<MediaState>({
+        paths: [],
+        currentIndex: 0,
+        isPlaying: false,
+        volume: 100
+    });
+    const { paths, currentIndex, isPlaying, volume } = mediaState;
     const [videoSrc, setVideoSrc] = useState<string | null>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const imageTimerRef = useRef<NodeJS.Timeout | null>(null);
+    const currentPath = paths[currentIndex];
+    const mediaType = currentPath ? getMediaType(currentPath) : null;
 
     // Fetch the file as a blob if the file is a video
     const fetchVideoBlob = async (path: string) => {
         const url = toMediaUrl(path);
         const response = await fetch(url, {
             headers: {
-                Range: "bytes=0-" // puedes ajustar el rango
+                Range: "bytes=0-"
             }
         });
 
@@ -26,56 +34,93 @@ export default function MediaPlayer() {
         return URL.createObjectURL(blob);
     };
 
+    // Notify controller that the media has ended
+    const handleMediaEnded = () => {
+        window.utils.notifyMediaEnded();
+    }
+
+    // USE EFFECTS:
+
+    // Update video source when currentPath changes
     useEffect(() => {
-        if (mediaType === "video") {
+        if (currentPath && mediaType === "video") {
             fetchVideoBlob(currentPath).then(setVideoSrc);
+        } else {
+            setVideoSrc(null);
         }
-    }, [currentPath]);
+    }, [currentPath, mediaType]);
 
-
+    // Control video playback based on isPlaying state
     useEffect(() => {
-        if (mediaPaths.length === 0) return;
+        if (videoRef.current && mediaType === "video" && videoSrc) {
+            if (isPlaying) {
+                videoRef.current.play().catch(error => console.error("Error playing video", error));
+            } else {
+                videoRef.current.pause();
+            }
+        }
+    }, [isPlaying, mediaType, videoSrc]);
 
-        const path = mediaPaths[currentIndex];
-        let timer: NodeJS.Timeout;
+    // Control video volume
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.volume = volume / 100;
+        }
+    }, [volume]);
 
-        // If the file is an image, set a time out of ten seconds
-        if (getMediaType(path) === "image") {
-            timer = setTimeout(() => setCurrentIndex(prev => {
-                return (prev + 1) % mediaPaths.length
-            }), 10000);
+    // Handle image timer (10 seconds per image)
+    useEffect(() => {
+        // Clear any existing timer
+        if (imageTimerRef.current) {
+            clearTimeout(imageTimerRef.current);
+            imageTimerRef.current = null;
         }
 
-        return () => clearTimeout(timer);
-    }, [currentIndex, mediaPaths]);
+        // Set timer for images if playing
+        if (currentPath && mediaType === "image" && isPlaying) {
+            imageTimerRef.current = setTimeout(() => {
+                handleMediaEnded();
+            }, 10000);
+        }
 
+        return () => {
+            if (imageTimerRef.current) {
+                clearTimeout(imageTimerRef.current);
+            }
+        }
+    }, [currentPath, mediaType, isPlaying]);
+
+    // Listen for media state updates from controller
     useEffect(() => {
-        window.utils.updatePaths((paths) => {
-            setMediaPaths(paths);
-            setCurrentIndex(0);
+        window.utils.onMediaStateUpdate((newState) => {
+            setMediaState(newState);
         });
 
         return () => {
-            window.utils.removeAllListeners("utils:updatePaths");
+            window.utils.removeAllListeners("utils:onMediaStateUpdate");
         }
     }, []);
 
+    // Cleanup video blob URLs on unmount
+    useEffect(() => {
+        return () => {
+            if (videoSrc) {
+                URL.revokeObjectURL(videoSrc);
+            }
+        }
+    }, [videoSrc]);
+
     return (
         <section className="overflow-hidden w-full h-auto aspect-[16/9] rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
-            {mediaPaths.length > 0 && (
+            {paths.length > 0 && currentPath && (
                 <div className="w-full h-full">
                     {mediaType === "video" ? (
                         videoSrc && (
                             <video
                                 key={currentPath}
+                                ref={videoRef}
                                 src={videoSrc}
-                                autoPlay
-                                loop={mediaPaths.length === 1}
-                                onEnded={() => {
-                                    if (mediaPaths.length > 1) {
-                                        setCurrentIndex((prev) => (prev + 1) % mediaPaths.length)
-                                    }
-                                }}
+                                onEnded={handleMediaEnded}
                                 className="w-full aspect-[16/9] object-cover"
                             />
                         )

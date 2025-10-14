@@ -105,7 +105,7 @@ app.on('ready', () => {
   const controlWindow = createAppWindow(CONTROL_DATA);
   const clientWindow = createAppWindow(CLIENT_DATA);
 
-  setWindowCommunication(clientWindow);
+  setWindowCommunication(controlWindow, clientWindow);
 
   protocol.handle("media", async (request) => {
     const filePath = decodeURIComponent(request.url.replace("media://", ""));

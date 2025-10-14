@@ -76,4 +76,22 @@ body {
             }
         }
     }
+
+    .custom-slider {
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        border-radius: 100px;
+        background-color: rgb(from var(--color-curious-blue-950) r g b / 0.3);
+        cursor: pointer;
+
+        &::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--color-curious-blue-950);
+            cursor: pointer;
+        }
+    }
 }

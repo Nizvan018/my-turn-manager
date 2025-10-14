@@ -39,3 +39,13 @@ export const getCountOfMediaTypes = (paths: string[]) => {
 
     return { videoCount, imageCount }
 }
+
+/**
+ * Get the name of the file from the path
+ * 
+ * @param {string} path - The file path
+ * @returns The name of the file without the directory
+ */
+export const getFileName = (path: string) => {
+    return path.split(/[\\/]/).pop() || "";
+}
