@@ -4,6 +4,8 @@ import Store, { Schema } from "electron-store";
 type MediaStoreSchema = {
     /** Media paths */
     mediaPaths: string[];
+    /** Media volume */
+    volume: number;
 }
 
 /** Media store schema */
@@ -13,11 +15,17 @@ const schema: Schema<MediaStoreSchema> = {
         items: {
             type: "string"
         }
+    },
+    volume: {
+        type: "number"
     }
 }
 
 // Store instance
-const store = new Store<MediaStoreSchema>({ schema });
+const mediaStore = new Store<MediaStoreSchema>({
+    name: "mediaStore",
+    schema
+});
 
 /**
  * Save the provided media paths
@@ -25,7 +33,7 @@ const store = new Store<MediaStoreSchema>({ schema });
  * @param {string[]} paths - Media paths to store
  */
 export const saveMediaPaths = (paths: string[]) => {
-    store.set("mediaPaths", paths);
+    mediaStore.set("mediaPaths", paths);
 }
 
 /**
@@ -34,5 +42,23 @@ export const saveMediaPaths = (paths: string[]) => {
  * @returns String array of stored media paths
  */
 export const loadMediaPaths = () => {
-    return store.get("mediaPaths", []);
+    return mediaStore.get("mediaPaths", []);
+}
+
+/**
+ * Save the provided volume
+ * 
+ * @param {number} volume - Volume to store
+ */
+export const saveVolume = (volume: number) => {
+    mediaStore.set("volume", volume);
+}
+
+/**
+ * Get the stored volume
+ * 
+ * @returns Stored volume number
+ */
+export const loadVolume = () => {
+    return mediaStore.get("volume", 50);
 }

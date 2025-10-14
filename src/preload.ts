@@ -6,9 +6,11 @@ import type { IpcBridge } from "./types/ipcBridge";
 
 const bridge: IpcBridge = {
     // Media file operations
+    selectMediaFiles: () => ipcRenderer.invoke("utils:selectMediaFiles"),
     saveMediaPaths: (paths) => ipcRenderer.invoke("utils:saveMediaPaths", paths),
     loadMediaPaths: () => ipcRenderer.invoke("utils:loadMediaPaths"),
-    selectMediaFiles: () => ipcRenderer.invoke("utils:selectMediaFiles"),
+    saveVolume: (volume) => ipcRenderer.invoke("utils:saveVolume", volume),
+    loadVolume: () => ipcRenderer.invoke("utils:loadVolume"),
     // Window file communication
     sendMediaState: (state) => ipcRenderer.send("utils:sendMediaState", state),
     onMediaStateUpdate: (callback) => ipcRenderer.on("utils:onMediaStateUpdate", (_event, state) => callback(state)),

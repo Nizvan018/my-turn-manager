@@ -53,6 +53,8 @@ export default function MediaPlayer() {
     // Control video playback based on isPlaying state
     useEffect(() => {
         if (videoRef.current && mediaType === "video" && videoSrc) {
+            videoRef.current.volume = volume / 100;
+
             if (isPlaying) {
                 videoRef.current.play().catch(error => console.error("Error playing video", error));
             } else {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FileVideoCamera, SkipBack, Play, Pause, SkipForward, Volume2, VolumeOff } from "lucide-react";
 import { getCountOfMediaTypes, getMediaType, getFileName } from "../../lib/mediaHelpers";
 import { MediaState } from "../../types/mediaState.type";
@@ -17,6 +17,7 @@ export default function MediaController() {
     });
     const { paths, currentIndex, isPlaying, volume } = mediaState;
     const [volumeBeforeMute, setVolumeBeforeMute] = useState<number>(50);
+    const saveVolumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
     const { imageCount, videoCount } = getCountOfMediaTypes(paths);
     const currentPath = paths[currentIndex] || null;
     const currentMediaType = currentPath ? getMediaType(currentPath) : null;
@@ -40,19 +41,31 @@ export default function MediaController() {
     }
 
     // Load the saved media paths
-    const getSavedMediaPaths = async () => {
+    const getInitialState = async () => {
         const savedPaths = await window.utils.loadMediaPaths();
+        const savedVolume = await window.utils.loadVolume();
 
         if (savedPaths.length > 0) {
             const newState = {
                 paths: savedPaths,
                 currentIndex: 0,
                 isPlaying: false,
-                volume
+                volume: savedVolume
             }
 
             window.utils.sendMediaState(newState);
             setMediaState(newState);
+        } else {
+            setMediaState(prev => {
+                const newState = {
+                    ...prev,
+                    volume: savedVolume
+                }
+
+                window.utils.sendMediaState(newState);
+
+                return newState;
+            });
         }
     }
 
@@ -126,6 +139,15 @@ export default function MediaController() {
 
             return newState;
         });
+
+        if (saveVolumeTimeoutRef.current) {
+            clearTimeout(saveVolumeTimeoutRef.current);
+        }
+
+        saveVolumeTimeoutRef.current = setTimeout(() => {
+            window.utils.saveVolume(newVolume);
+            console.log("Volumen guardado")
+        }, 1000);
     }
 
     // Handle mute and unmute for videos
@@ -177,9 +199,15 @@ export default function MediaController() {
         }
     }, []);
 
-    // Load saved paths
+    // Load the initial state (paths and volume)
     useEffect(() => {
-        getSavedMediaPaths();
+        getInitialState();
+
+        return () => {
+            if (saveVolumeTimeoutRef.current) {
+                clearTimeout(saveVolumeTimeoutRef.current);
+            }
+        }
     }, []);
 
     return (

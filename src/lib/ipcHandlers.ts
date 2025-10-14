@@ -1,6 +1,6 @@
 import { dialog, ipcMain } from "electron";
 import { existsSync } from "fs";
-import { saveMediaPaths, loadMediaPaths } from "./storage";
+import { saveMediaPaths, loadMediaPaths, saveVolume, loadVolume } from "./storage/mediaStorage";
 
 /**
  * Allow to select multiple media files using dialog from electron
@@ -33,4 +33,18 @@ ipcMain.handle("utils:saveMediaPaths", (_event, paths: string[]) => {
  */
 ipcMain.handle("utils:loadMediaPaths", () => {
     return loadMediaPaths();
+});
+
+/**
+ * Allow to save the volume with electron-storage
+ */
+ipcMain.handle("utils:saveVolume", (_event, volume: number) => {
+    return saveVolume(volume);
+});
+
+/**
+ * Allow to load the saved volume with electron-storage
+ */
+ipcMain.handle("utils:loadVolume", () => {
+    return loadVolume();
 });
