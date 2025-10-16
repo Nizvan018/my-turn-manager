@@ -1,8 +1,8 @@
 // import SelectedTurn from "./SelectedTurn";
 // import WaitingTurn from "./WaitingTurn";
 import { History, Settings, Plus } from "lucide-react";
-import Modal from "./Modal";
 import { useModal } from "../../context/Modal.context";
+import TurnConfigurationModal from "./TurnConfigurationModal";
 
 // Turn examples
 const waitingTurns = ["A2", "A3", "A4", "A5", "A6", "A7"];
@@ -62,16 +62,7 @@ export default function TurnsSection() {
                 </button>
             </div>
 
-            <Modal
-                id="turn-configuration-modal"
-                className="w-sm"
-            >
-                <div className="flex flex-col gap-4">
-                    <h2 className="text-lg font-semibold">Configuración de turnos</h2>
-
-                    <span>Aquí iría toda la configuración de los turnos</span>
-                </div>
-            </Modal>
+            <TurnConfigurationModal />
         </section>
     )
 }
