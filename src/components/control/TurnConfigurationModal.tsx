@@ -3,28 +3,51 @@ import { useForm } from "react-hook-form";
 import { turnConfigurationSchema } from "../../schemas/turnConfiguration.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "./CustomInput";
+import { turnFormatter } from "../../lib/turnHelpers";
+import { Turn } from "../../types/turn.type";
+import { useModal } from "../../context/Modal.context";
 
-const turnPreview = (text: string, startNumber: string, digitNumber: number) => {
-    return `${text}${startNumber.padStart(digitNumber, "0")}`;
+/** Component props */
+interface Props {
+    /** Set turn callback from TurnSection component of control page */
+    setTurnCallback: React.Dispatch<React.SetStateAction<Turn>>;
 }
 
-export default function TurnConfigurationModal() {
+/**
+ * Modal to configure the turns
+ * 
+ * @param {Props} props - Component props
+ * @returns JSX.Element
+ */
+export default function TurnConfigurationModal({ setTurnCallback }: Props) {
+    const { setModalState } = useModal();
     const { control, handleSubmit, formState: { errors }, watch } = useForm({
         resolver: zodResolver(turnConfigurationSchema),
         defaultValues: {
-            text: "",
+            prefix: "",
             startNumber: "0",
-            digitNumber: "1"
+            numberOfDigits: "1"
         }
     });
-    const formattedTurn = turnPreview(
-        watch("text"),
-        watch("startNumber") ?? "0",
-        Number(watch("digitNumber") ?? 0)
+    const formattedTurn = turnFormatter(
+        watch("prefix"),
+        watch("startNumber") ?? 0,
+        watch("numberOfDigits") ?? 0
     );
 
+    // Handle form submition
     const submit = handleSubmit(data => {
-        console.log(data);
+        const formattedTurn = turnFormatter(data.prefix, data.startNumber, data.numberOfDigits);
+
+        setTurnCallback({
+            id: `${formattedTurn}_${Date.now()}`,
+            prefix: data.prefix,
+            turnNumber: data.startNumber,
+            numberOfDigits: data.numberOfDigits,
+            formattedTurn
+        });
+
+        setModalState(null);
     });
 
     return (
@@ -36,16 +59,18 @@ export default function TurnConfigurationModal() {
                 <h2 className="text-xl font-semibold">Configuración de turnos</h2>
 
                 <div className="flex items-center justify-between gap-4">
+                    {/* PREFIX */}
                     <CustomInput
-                        name="text"
+                        name="prefix"
                         control={control}
                         label="Texto"
                         placeholder="A-"
                         maxLength={5}
-                        error={errors.text}
+                        error={errors.prefix}
                         className="w-24"
                     />
 
+                    {/* NUMBER */}
                     <CustomInput
                         name="startNumber"
                         control={control}
@@ -58,15 +83,16 @@ export default function TurnConfigurationModal() {
                         className="w-40"
                     />
 
+                    {/* NUMBER OF DIGITS */}
                     <CustomInput
-                        name="digitNumber"
+                        name="numberOfDigits"
                         control={control}
                         type="number"
                         label="Número de dígitos *"
                         placeholder="0"
                         min={0}
                         max={5}
-                        error={errors.digitNumber}
+                        error={errors.numberOfDigits}
                         className="w-40"
                     />
                 </div>
@@ -83,7 +109,7 @@ export default function TurnConfigurationModal() {
 
                 <button
                     onClick={submit}
-                    className="btn-primary"
+                    className="btn-primary text-lg"
                 >
                     Aceptar
                 </button>

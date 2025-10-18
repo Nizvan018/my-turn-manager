@@ -4,7 +4,7 @@ import * as z from "zod";
  * Schema for turn configuration
  */
 export const turnConfigurationSchema = z.object({
-    text: z.string()
+    prefix: z.string()
         .max(5, "Máximo 5 caracteres"),
     startNumber: z.string()
         .min(1, "Introduzca un número")
@@ -16,7 +16,7 @@ export const turnConfigurationSchema = z.object({
                     error: "El número debe ser un entero"
                 })
         ),
-    digitNumber: z.string()
+    numberOfDigits: z.string()
         .min(1, "Introduzca un número")
         .pipe(
             z.coerce.number<string>("El valor no es un número válido")

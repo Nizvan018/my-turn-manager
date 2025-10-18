@@ -94,4 +94,41 @@ body {
             cursor: pointer;
         }
     }
+
+    .scroll-fade {
+        mask-image: linear-gradient(to bottom,
+                transparent,
+                black 3%,
+                black 97%,
+                transparent);
+    }
+
+    .scroll-fade-bottom {
+        mask-image: linear-gradient(to bottom,
+                transparent,
+                black 3%,
+                black 100%,
+                transparent);
+    }
+
+    .custom-scroll {
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #bbb;
+            border-radius: 9999px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+
+        &::-webkit-scrollbar-button {
+            display: none;
+        }
+    }
 }
