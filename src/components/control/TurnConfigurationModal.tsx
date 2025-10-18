@@ -6,6 +6,8 @@ import CustomInput from "./CustomInput";
 import { turnFormatter } from "../../lib/turnHelpers";
 import { Turn } from "../../types/turn.type";
 import { useModal } from "../../context/Modal.context";
+import { useEffect, useState } from "react";
+import { LoaderCircle } from "lucide-react";
 
 /** Component props */
 interface Props {
@@ -21,11 +23,12 @@ interface Props {
  */
 export default function TurnConfigurationModal({ setTurnCallback }: Props) {
     const { setModalState } = useModal();
-    const { control, handleSubmit, formState: { errors }, watch } = useForm({
+    const [isSavingConfig, setIsSavingConfig] = useState<boolean>(false);
+    const { control, handleSubmit, formState: { errors }, watch, reset } = useForm({
         resolver: zodResolver(turnConfigurationSchema),
         defaultValues: {
             prefix: "",
-            startNumber: "0",
+            startNumber: "1",
             numberOfDigits: "1"
         }
     });
@@ -36,19 +39,49 @@ export default function TurnConfigurationModal({ setTurnCallback }: Props) {
     );
 
     // Handle form submition
-    const submit = handleSubmit(data => {
-        const formattedTurn = turnFormatter(data.prefix, data.startNumber, data.numberOfDigits);
+    const submit = handleSubmit(async (data) => {
+        try {
+            setIsSavingConfig(true);
 
-        setTurnCallback({
-            id: `${formattedTurn}_${Date.now()}`,
-            prefix: data.prefix,
-            turnNumber: data.startNumber,
-            numberOfDigits: data.numberOfDigits,
-            formattedTurn
-        });
+            const formattedTurn = turnFormatter(data.prefix, data.startNumber, data.numberOfDigits);
 
-        setModalState(null);
+            setTurnCallback({
+                id: `${formattedTurn}_${Date.now()}`,
+                prefix: data.prefix,
+                turnNumber: data.startNumber,
+                numberOfDigits: data.numberOfDigits,
+                formattedTurn
+            });
+
+            await window.utils.saveTurnConfiguration(data);
+            setModalState(null);
+        } catch (error) {
+            console.error("Error al guardar la configuraicón:", error);
+        } finally {
+            setIsSavingConfig(false);
+        }
     });
+
+    // Load saved turn configuration
+    const loadSavedTurnConfiguration = async () => {
+        try {
+            const savedConfig = await window.utils.loadTurnConfiguration();
+
+            if (savedConfig) {
+                reset({
+                    prefix: savedConfig.prefix,
+                    startNumber: String(savedConfig.startNumber),
+                    numberOfDigits: String(savedConfig.numberOfDigits)
+                });
+            }
+        } catch (error) {
+            console.error("Error al cargar la configuración:", error);
+        }
+    }
+
+    useEffect(() => {
+        loadSavedTurnConfiguration();
+    }, []);
 
     return (
         <Modal
@@ -109,9 +142,17 @@ export default function TurnConfigurationModal({ setTurnCallback }: Props) {
 
                 <button
                     onClick={submit}
-                    className="btn-primary text-lg"
+                    disabled={isSavingConfig}
+                    className="disabled:opacity-50 btn-primary text-lg"
                 >
-                    Aceptar
+                    {isSavingConfig ? (
+                        <>
+                            <span>Guardando</span>
+                            <LoaderCircle className="size-5 animate-spin" />
+                        </>
+                    ) : (
+                        "Aceptar"
+                    )}
                 </button>
             </div>
         </Modal>

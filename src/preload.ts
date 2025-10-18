@@ -11,6 +11,9 @@ const bridge: IpcBridge = {
     loadMediaPaths: () => ipcRenderer.invoke("utils:loadMediaPaths"),
     saveVolume: (volume) => ipcRenderer.invoke("utils:saveVolume", volume),
     loadVolume: () => ipcRenderer.invoke("utils:loadVolume"),
+    // Turn operations
+    saveTurnConfiguration: (configuration) => ipcRenderer.invoke("utils:saveTurnConfiguration", configuration),
+    loadTurnConfiguration: () => ipcRenderer.invoke("utils:loadTurnConfiguration"),
     // Window file communication
     sendMediaState: (state) => ipcRenderer.send("utils:sendMediaState", state),
     onMediaStateUpdate: (callback) => ipcRenderer.on("utils:onMediaStateUpdate", (_event, state) => callback(state)),
