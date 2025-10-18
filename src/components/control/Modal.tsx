@@ -57,9 +57,9 @@ export default function Modal({ id, children, onCloseModal, isCloseButtonDisable
                 <button
                     onClick={closeModal}
                     disabled={isCloseButtonDisabled}
-                    className="absolute disabled:opacity-50 top-6 right-6 text-rose-500 cursor-pointer transition hover:text-rose-600"
+                    className="absolute disabled:opacity-50 top-8 right-8 text-rose-500 cursor-pointer transition hover:text-rose-600"
                 >
-                    <X size={20} />
+                    <X size={24} />
                 </button>
 
                 {children}
