@@ -2,7 +2,7 @@ import { dialog, ipcMain } from "electron";
 import { existsSync } from "fs";
 import type { TurnConfigurationType } from "../schemas/turnConfiguration.schema";
 import { saveMediaPaths, loadMediaPaths, saveVolume, loadVolume } from "./storage/mediaStorage";
-import { saveTurnConfiguration, loadTurnConfiguration } from "./storage/turnStorage";
+import { saveTurnConfiguration, loadTurnConfiguration, saveTurns, loadTurns, type SaveTurnsProps } from "./storage/turnStorage";
 
 /**
  * Allow to select multiple media files using dialog from electron
@@ -67,4 +67,18 @@ ipcMain.handle("utils:saveTurnConfiguration", (_event, configuration: TurnConfig
  */
 ipcMain.handle("utils:loadTurnConfiguration", () => {
     return loadTurnConfiguration();
+});
+
+/**
+ * Allow to save the turn at checkout if exists, the waiting turns and the turns history with electron-store
+ */
+ipcMain.handle("utils:saveTurns", (_event, saveTurnsProps: SaveTurnsProps) => {
+    return saveTurns(saveTurnsProps);
+});
+
+/**
+ * Allow to load the saved turn at checkout if exists, the waiting turns and the turns history with electron-store
+ */
+ipcMain.handle("utils:loadTurns", () => {
+    return loadTurns();
 });

@@ -8,9 +8,9 @@ interface Props {
     /** Indicates if the attend button is disabled */
     isAttendButtonDisabled: boolean;
     /** Callback to attend the turn */
-    attendTurnCallback: () => void;
+    attendTurnCallback: () => Promise<void>;
     /** Callback to delete the turn of the array */
-    removeTurnCallback: (id: string) => void;
+    removeTurnCallback: (id: string) => Promise<void>;
 }
 
 /**

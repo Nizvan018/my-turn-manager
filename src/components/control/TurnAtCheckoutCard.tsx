@@ -6,9 +6,9 @@ interface Props {
     /** Turn at the checkout */
     turn: Turn;
     /** Callback to check the turn (send it to the history) */
-    checkTurnAtCheckoutCallback: () => void;
+    checkTurnAtCheckoutCallback: () => Promise<void>;
     /** Callback to return the turn to the waiting turns array */
-    returnTurnAtCheckoutCallback: () => void;
+    returnCheckoutTurnCallback: () => Promise<void>;
 }
 
 /**
@@ -17,11 +17,11 @@ interface Props {
  * @param {Props} props - Component props 
  * @returns JSX.Element
  */
-export default function TurnAtCheckoutCard({ turn, checkTurnAtCheckoutCallback, returnTurnAtCheckoutCallback }: Props) {
+export default function TurnAtCheckoutCard({ turn, checkTurnAtCheckoutCallback, returnCheckoutTurnCallback }: Props) {
     return (
         <div className="flex items-center gap-6 w-full h-32 text-white rounded-3xl bg-radial-[at_0%_0%] from-curious-blue-600 to-curious-blue-400 shadow-md">
             <button
-                onClick={returnTurnAtCheckoutCallback}
+                onClick={returnCheckoutTurnCallback}
                 className="flex justify-center items-center w-1/6 h-full rounded-l-3xl text-rose-400 bg-rose-400/25 cursor-pointer transition hover:bg-rose-500/25"
             >
                 <ArrowDown className="size-8" />

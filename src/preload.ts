@@ -14,6 +14,8 @@ const bridge: IpcBridge = {
     // Turn operations
     saveTurnConfiguration: (configuration) => ipcRenderer.invoke("utils:saveTurnConfiguration", configuration),
     loadTurnConfiguration: () => ipcRenderer.invoke("utils:loadTurnConfiguration"),
+    saveTurns: (saveTurnsProps) => ipcRenderer.invoke("utils:saveTurns", saveTurnsProps),
+    loadTurns: () => ipcRenderer.invoke("utils:loadTurns"),
     // Window file communication
     sendMediaState: (state) => ipcRenderer.send("utils:sendMediaState", state),
     onMediaStateUpdate: (callback) => ipcRenderer.on("utils:onMediaStateUpdate", (_event, state) => callback(state)),

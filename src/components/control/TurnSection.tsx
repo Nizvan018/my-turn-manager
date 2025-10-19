@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { History, Settings, Plus } from "lucide-react";
 import { useModal } from "../../context/Modal.context";
 import TurnConfigurationModal from "./TurnConfigurationModal";
@@ -24,34 +24,58 @@ export default function TurnsSection() {
     const [waitingTurns, setWaitingTurns] = useState<Turn[]>([]);
     const [turnsHistory, setTurnsHistory] = useState<Turn[]>([]);
 
+    // Save turns helper (wrap saveTurns in a try catch)
+    const saveTurnsHelper = async (data: Parameters<typeof window.utils.saveTurns>[0]) => {
+        try {
+            await window.utils.saveTurns(data);
+        } catch (error) {
+            console.error("Error al guardar los turnos:", error);
+        }
+    }
+
     // FOR TURN AT CHECKOUT:
 
     // Check the turn and send it to the history array
-    const checkTurnAtCheckout = () => {
+    const checkTurnAtCheckout = async () => {
         if (!turnAtCheckout) return;
 
-        setTurnsHistory(
-            prev => [turnAtCheckout, ...prev].slice(0, HISTORY_LENGTH)
-        );
+        const newTurnsHistory = [
+            turnAtCheckout, ...turnsHistory
+        ].slice(0, HISTORY_LENGTH);
+
+        setTurnsHistory(newTurnsHistory);
         setTurnAtCheckout(null);
+
+        await saveTurnsHelper({
+            storeType: "checkTurnAtCheckout",
+            turnsHistory: newTurnsHistory
+        });
     }
 
     // Return the turn at checkout to the waiting turns array
-    const returnTurnAtCheckout = () => {
+    const returnCheckoutTurn = async () => {
         if (!turnAtCheckout) return;
 
-        setWaitingTurns(prev => [turnAtCheckout, ...prev]);
+        const newWaitingTurns = [turnAtCheckout, ...waitingTurns];
+
+        setWaitingTurns(newWaitingTurns);
         setTurnAtCheckout(null);
+
+        await saveTurnsHelper({
+            storeType: "returnCheckoutTurn",
+            waitingTurns: newWaitingTurns
+        });
     }
 
     // FOR WAITING TURNS:
 
     // Create a new turn and add it to the waitingTurns array
-    const createNewTurn = () => {
+    const createNewTurn = async () => {
         if (!nextTurn) return;
 
-        setWaitingTurns(prev => [...prev, nextTurn]);
+        const newWaitingTurns = [...waitingTurns, nextTurn];
 
+        setWaitingTurns(newWaitingTurns);
         setNextTurn(prev => {
             const formattedTurn = turnFormatter(prev.prefix, prev.turnNumber + 1, prev.numberOfDigits);
 
@@ -62,18 +86,31 @@ export default function TurnsSection() {
                 formattedTurn
             }
         });
+
+        await saveTurnsHelper({
+            storeType: "createNewTurn",
+            waitingTurns: newWaitingTurns
+        });
     }
 
     // Attend the first turn of the waitingTurns array
-    const attendNextTurn = () => {
+    const attendNextTurn = async () => {
+        if (waitingTurns.length === 0) return;
+
         const [first, ...rest] = waitingTurns;
 
         setTurnAtCheckout(first);
         setWaitingTurns(rest);
+
+        await saveTurnsHelper({
+            storeType: "attendNextTurn",
+            turnAtCheckout: first,
+            waitingTurns: rest
+        });
     }
 
     // Removes an specific turn of the waitingTurns array
-    const removeTurn = (id: string) => {
+    const removeTurn = async (id: string) => {
         const turnIndex = waitingTurns.findIndex(item => item.id === id);
 
         // If the turn doesn't exist
@@ -84,20 +121,81 @@ export default function TurnsSection() {
             setNextTurn(waitingTurns[turnIndex]); // replace with the eliminated turn
         }
 
-        setWaitingTurns(prev => prev.filter(item => item.id !== id));
+        const newWaitingTurns = waitingTurns.filter(item => item.id !== id);
+        setWaitingTurns(newWaitingTurns);
+
+        await saveTurnsHelper({
+            storeType: "removeTurn",
+            waitingTurns: newWaitingTurns
+        });
     }
 
     // FOR HISTORY TURNS:
 
     // Return an specific turn from history array to the checkout
-    const returnTurnFromHistory = () => {
+    const returnTurnFromHistory = async () => {
         if (turnAtCheckout) return;
+        if (turnsHistory.length === 0) return;
 
         const [first, ...rest] = turnsHistory;
 
         setTurnAtCheckout(first);
         setTurnsHistory(rest);
+
+        await saveTurnsHelper({
+            storeType: "returnTurnFromHistory",
+            turnAtCheckout: first,
+            turnsHistory: rest
+        });
     }
+
+    // Load the turns from electron store
+    const loadSavedTurns = async () => {
+        try {
+            const { turnAtCheckout, waitingTurns, turnsHistory } = await window.utils.loadTurns(); // get the saved turns
+            const savedConfig = await window.utils.loadTurnConfiguration(); // get the saved turn configuration
+
+            const lastTurn = waitingTurns.at(-1) ?? // if there are waiting turns
+                turnAtCheckout ?? // if there is a turn at the checkout
+                turnsHistory.at(0) ?? // if there is a turns history
+                null;
+
+            if (lastTurn) { // if last turn exists, generate the next turn
+                const { prefix, turnNumber, numberOfDigits } = lastTurn;
+                const formattedTurn = turnFormatter(prefix, turnNumber + 1, numberOfDigits);
+
+                setNextTurn({
+                    id: `${formattedTurn}_${Date.now()}`,
+                    prefix,
+                    turnNumber: turnNumber + 1,
+                    numberOfDigits,
+                    formattedTurn
+                });
+            } else { // use the saved turn configuration to generate the next turn
+                const { prefix, startNumber, numberOfDigits } = savedConfig;
+                const formattedTurn = turnFormatter(prefix, startNumber, numberOfDigits);
+
+                setNextTurn({
+                    id: `${formattedTurn}_${Date.now()}`,
+                    prefix,
+                    turnNumber: startNumber,
+                    numberOfDigits,
+                    formattedTurn
+                });
+            }
+
+            // Set the saved turns
+            setTurnAtCheckout(turnAtCheckout);
+            setWaitingTurns(waitingTurns);
+            setTurnsHistory(turnsHistory);
+        } catch (error) {
+            console.error("Error al cargar los turnos", error);
+        }
+    }
+
+    useEffect(() => {
+        loadSavedTurns();
+    }, []);
 
     return (
         <section className="flex flex-col gap-6 w-full max-w-1/4 h-full">
@@ -107,7 +205,7 @@ export default function TurnsSection() {
                         <TurnAtCheckoutCard
                             turn={turnAtCheckout}
                             checkTurnAtCheckoutCallback={checkTurnAtCheckout}
-                            returnTurnAtCheckoutCallback={returnTurnAtCheckout}
+                            returnCheckoutTurnCallback={returnCheckoutTurn}
                         />
                     </div>
                 ) : (

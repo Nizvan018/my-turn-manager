@@ -9,7 +9,7 @@ interface Props {
     /** Indicate if the return button is disabled */
     isReturnButtonDisabled: boolean;
     /** Return the turn to the checktou */
-    returnTurnFromHistoryCallback: () => void;
+    returnTurnFromHistoryCallback: () => Promise<void>;
 }
 
 /**
