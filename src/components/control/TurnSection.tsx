@@ -50,6 +50,8 @@ export default function TurnsSection() {
             storeType: "checkTurnAtCheckout",
             turnsHistory: newTurnsHistory
         });
+
+        window.utils.sendTurnAtCheckout(null);
     }
 
     // Return the turn at checkout to the waiting turns array
@@ -63,6 +65,11 @@ export default function TurnsSection() {
 
         await saveTurnsHelper({
             storeType: "returnCheckoutTurn",
+            waitingTurns: newWaitingTurns
+        });
+
+        window.utils.sendTurnState({
+            turnAtCheckout: null,
             waitingTurns: newWaitingTurns
         });
     }
@@ -91,6 +98,8 @@ export default function TurnsSection() {
             storeType: "createNewTurn",
             waitingTurns: newWaitingTurns
         });
+
+        window.utils.sendWaitingTurns(newWaitingTurns);
     }
 
     // Attend the first turn of the waitingTurns array
@@ -104,6 +113,11 @@ export default function TurnsSection() {
 
         await saveTurnsHelper({
             storeType: "attendNextTurn",
+            turnAtCheckout: first,
+            waitingTurns: rest
+        });
+
+        window.utils.sendTurnState({
             turnAtCheckout: first,
             waitingTurns: rest
         });
@@ -128,6 +142,8 @@ export default function TurnsSection() {
             storeType: "removeTurn",
             waitingTurns: newWaitingTurns
         });
+
+        window.utils.sendWaitingTurns(newWaitingTurns);
     }
 
     // FOR HISTORY TURNS:
@@ -147,6 +163,8 @@ export default function TurnsSection() {
             turnAtCheckout: first,
             turnsHistory: rest
         });
+
+        window.utils.sendTurnAtCheckout(first);
     }
 
     // Load the turns from electron store
@@ -188,6 +206,11 @@ export default function TurnsSection() {
             setTurnAtCheckout(turnAtCheckout);
             setWaitingTurns(waitingTurns);
             setTurnsHistory(turnsHistory);
+
+            window.utils.sendTurnState({
+                turnAtCheckout,
+                waitingTurns
+            });
         } catch (error) {
             console.error("Error al cargar los turnos", error);
         }

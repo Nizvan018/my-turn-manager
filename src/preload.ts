@@ -21,6 +21,14 @@ const bridge: IpcBridge = {
     onMediaStateUpdate: (callback) => ipcRenderer.on("utils:onMediaStateUpdate", (_event, state) => callback(state)),
     notifyMediaEnded: () => ipcRenderer.send("utils:notifyMediaEnded"),
     onMediaEnded: (callback) => ipcRenderer.on("utils:onMediaEnded", callback),
+    // Window turn communication
+    sendTurnState: (state) => ipcRenderer.send("utils:sendTurnState", state),
+    onTurnStateUpdate: (callback) => ipcRenderer.on("utils:onTurnStateUpdate", (_event, state) => callback(state)),
+    sendTurnAtCheckout: (state) => ipcRenderer.send("utils:sendTurnAtCheckout", state),
+    onTurnAtCheckoutUpdate: (callback) => ipcRenderer.on("utils:onTurnAtCheckoutUpdate", (_event, state) => callback(state)),
+    sendWaitingTurns: (state) => ipcRenderer.send("utils:sendWaitingTurns", state),
+    onWaitingTurnsUpdate: (callback) => ipcRenderer.on("utils:onWaitingTurnsUpdate", (_event, state) => callback(state)),
+
     removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),
 }
 

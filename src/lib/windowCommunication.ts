@@ -1,6 +1,8 @@
 import { ipcMain } from "electron";
 import type { BrowserWindow } from "electron";
-import { MediaState } from "../types/mediaState.type";
+import type { MediaState } from "../types/mediaState.type";
+import type { TurnState } from "../types/turnState.type";
+import type { Turn } from "../types/turn.type";
 
 /**
  * This function create a communication channel between the windows
@@ -9,6 +11,8 @@ import { MediaState } from "../types/mediaState.type";
  * @param {BrowserWindow} clientWindow 
  */
 export const setWindowCommunication = (controlWindow: BrowserWindow, clientWindow: BrowserWindow) => {
+    // MEDIA COMMUNICATION:
+
     ipcMain.on("utils:sendMediaState", (_event, state: MediaState) => {
         if (clientWindow && !clientWindow.isDestroyed()) {
             clientWindow.webContents.send("utils:onMediaStateUpdate", state);
@@ -19,6 +23,26 @@ export const setWindowCommunication = (controlWindow: BrowserWindow, clientWindo
     ipcMain.on("utils:notifyMediaEnded", (_event) => {
         if (controlWindow && !controlWindow.isDestroyed()) {
             controlWindow.webContents.send("utils:onMediaEnded");
+        }
+    });
+
+    // TURN COMMUNICATION:
+
+    ipcMain.on("utils:sendTurnState", (_event, state: TurnState) => {
+        if (clientWindow && !clientWindow.isDestroyed()) {
+            clientWindow.webContents.send("utils:onTurnStateUpdate", state);
+        }
+    });
+
+    ipcMain.on("utils:sendTurnAtCheckout", (_event, state: Turn | null) => {
+        if (clientWindow && !clientWindow.isDestroyed()) {
+            clientWindow.webContents.send("utils:onTurnAtCheckoutUpdate", state);
+        }
+    });
+
+    ipcMain.on("utils:sendWaitingTurns", (_event, state: Turn[]) => {
+        if (clientWindow && !clientWindow.isDestroyed()) {
+            clientWindow.webContents.send("utils:onWaitingTurnsUpdate", state);
         }
     });
 }

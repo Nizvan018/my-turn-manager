@@ -16,17 +16,15 @@ interface Props {
  */
 export default function WaitingTurn({ index, turn }: Props) {
     return (
-        <li className="flex items-center gap-6 p-6 justify-between rounded-3xl border border-curious-blue-950/10 bg-white shadow-sm">
-            <div className="flex flex-col gap-2 h-full">
-                <span className="text-lg font-semibold">Turno en espera</span>
-                <div className="flex items-center gap-2">
-                    <div className="p-2 rounded-full bg-curious-blue-950/5">
-                        <ScreenShare className="size-4" />
-                    </div>
-                    <span>{index * 3} minutos aprox.</span>
+        <li className="relative flex flex-col p-5 rounded-3xl border border-curious-blue-950/10 bg-white shadow-sm">
+            <span className="text-lg font-semibold">Turno en espera</span>
+            <span className="text-6xl font-medium pb-1">{turn}</span>
+            <div className="absolute bottom-3 right-3 flex items-center justify-end gap-2">
+                <span className="text-sm">{index * 3} min. aprox.</span>
+                <div className="p-[6px] rounded-full bg-curious-blue-950/5">
+                    <ScreenShare className="size-[14px]" />
                 </div>
             </div>
-            <span className="text-6xl font-medium">{turn}</span>
         </li>
     )
 }

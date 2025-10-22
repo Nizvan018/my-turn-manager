@@ -1,6 +1,8 @@
 import type { TurnConfigurationType } from "../schemas/turnConfiguration.schema";
 import type { MediaState } from "./mediaState.type";
 import type { SaveTurnsProps, TurnStoreSchema } from "../lib/storage/turnStorage";
+import type { TurnState } from "./turnState.type";
+import type { Turn } from "./turn.type";
 
 /**
  * This interface define the IPC bridge
@@ -11,7 +13,7 @@ export interface IpcBridge {
     saveMediaPaths: (paths: string[]) => Promise<void>;
     loadMediaPaths: () => Promise<string[]>;
     saveVolume: (volume: number) => Promise<void>;
-    loadVolume: () => Promise<Omit<TurnStoreSchema, "configuration">>;
+    loadVolume: () => Promise<number>;
     // Turn opreations
     saveTurnConfiguration: (configuration: TurnConfigurationType) => Promise<void>;
     loadTurnConfiguration: () => Promise<TurnConfigurationType>;
@@ -22,5 +24,13 @@ export interface IpcBridge {
     onMediaStateUpdate: (callback: (state: MediaState) => void) => void;
     notifyMediaEnded: () => void;
     onMediaEnded: (callback: () => void) => void;
+    // Window turn communication
+    sendTurnState: (state: TurnState) => void;
+    onTurnStateUpdate: (callback: (state: TurnState) => void) => void;
+    sendTurnAtCheckout: (state: Turn | null) => void;
+    onTurnAtCheckoutUpdate: (callback: (state: Turn | null) => void) => void;
+    sendWaitingTurns: (state: Turn[]) => void;
+    onWaitingTurnsUpdate: (callback: (state: Turn[]) => void) => void;
+
     removeAllListeners: (channel: string) => void;
 }
