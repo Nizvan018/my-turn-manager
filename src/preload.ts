@@ -13,11 +13,14 @@ const bridge: IpcBridge = {
     loadMediaPaths: () => ipcRenderer.invoke("utils:loadMediaPaths"),
     saveVolume: (volume) => ipcRenderer.invoke("utils:saveVolume", volume),
     loadVolume: () => ipcRenderer.invoke("utils:loadVolume"),
-    // Turn operations
+    // Turn store
     saveTurnConfiguration: (configuration) => ipcRenderer.invoke("utils:saveTurnConfiguration", configuration),
     loadTurnConfiguration: () => ipcRenderer.invoke("utils:loadTurnConfiguration"),
     saveTurns: (saveTurnsProps) => ipcRenderer.invoke("utils:saveTurns", saveTurnsProps),
     loadTurns: () => ipcRenderer.invoke("utils:loadTurns"),
+    // Info store
+    saveLogoPath: (logoPath) => ipcRenderer.invoke("utils:saveLogoPath", logoPath),
+    loadLogoPath: () => ipcRenderer.invoke("utils:loadLogoPath"),
     // Window file communication
     sendMediaState: (state) => ipcRenderer.send("utils:sendMediaState", state),
     onMediaStateUpdate: (callback) => ipcRenderer.on("utils:onMediaStateUpdate", (_event, state) => callback(state)),

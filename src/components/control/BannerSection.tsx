@@ -1,5 +1,5 @@
 import { ImageOff, SquarePen, MousePointerClick } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toMediaUrl } from "../../lib/mediaHelpers";
 
 /**
@@ -17,7 +17,22 @@ export default function BannerSection() {
         if (newPath) {
             setLogoPath(newPath);
         }
+
+        await window.utils.saveLogoPath(newPath);
     }
+
+    // Load saved info
+    const loadSavedInfo = async () => {
+        const savedLogoPath = await window.utils.loadLogoPath();
+
+        if (savedLogoPath) {
+            setLogoPath(savedLogoPath);
+        }
+    }
+
+    useEffect(() => {
+        loadSavedInfo();
+    }, []);
 
     return (
         <section className="flex gap-6 w-full min-h-0 grow">

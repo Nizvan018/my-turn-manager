@@ -3,6 +3,7 @@ import { existsSync } from "fs";
 import type { TurnConfigurationType } from "../schemas/turnConfiguration.schema";
 import { saveMediaPaths, loadMediaPaths, saveVolume, loadVolume } from "./storage/mediaStorage";
 import { saveTurnConfiguration, loadTurnConfiguration, saveTurns, loadTurns, type SaveTurnsProps } from "./storage/turnStorage";
+import { loadLogoPath, saveLogoPath, type InfoStoreSchema } from "./storage/infoStorage";
 
 // MEDIA SELECT
 
@@ -102,4 +103,20 @@ ipcMain.handle("utils:saveTurns", (_event, saveTurnsProps: SaveTurnsProps) => {
  */
 ipcMain.handle("utils:loadTurns", () => {
     return loadTurns();
+});
+
+// INFO STORE:
+
+/**
+ * Allow to save the logo path with electron-store
+ */
+ipcMain.handle("utils:saveLogoPath", (_event, logoPath: InfoStoreSchema["logoPath"]) => {
+    return saveLogoPath(logoPath);
+});
+
+/**
+ * Allow to load the saved logo path with electron-store
+ */
+ipcMain.handle("utils:loadLogoPath", () => {
+    return loadLogoPath();
 });
