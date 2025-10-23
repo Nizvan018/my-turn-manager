@@ -37,6 +37,9 @@ export interface IpcBridge {
     onTurnAtCheckoutUpdate: (callback: (state: Turn | null) => void) => void;
     sendWaitingTurns: (state: Turn[]) => void;
     onWaitingTurnsUpdate: (callback: (state: Turn[]) => void) => void;
+    // Window info communication
+    sendLogoPath: (state: InfoStoreSchema["logoPath"]) => void;
+    onLogoPathUpdated: (callback: (state: InfoStoreSchema["logoPath"]) => void) => void;
 
     removeAllListeners: (channel: string) => void;
 }
