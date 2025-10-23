@@ -4,6 +4,8 @@ import type { TurnConfigurationType } from "../schemas/turnConfiguration.schema"
 import { saveMediaPaths, loadMediaPaths, saveVolume, loadVolume } from "./storage/mediaStorage";
 import { saveTurnConfiguration, loadTurnConfiguration, saveTurns, loadTurns, type SaveTurnsProps } from "./storage/turnStorage";
 
+// MEDIA SELECT
+
 /**
  * Allow to select multiple media files using dialog from electron
  */
@@ -13,7 +15,7 @@ ipcMain.handle("utils:selectMediaFiles", async () => {
         filters: [
             {
                 name: "Media",
-                extensions: ["jpg", "png", "mp4", "mov", "webm"]
+                extensions: ["jpg", "jpeg", "png", "webp", "mp4", "mov", "webm"]
             }
         ]
     });
@@ -21,6 +23,25 @@ ipcMain.handle("utils:selectMediaFiles", async () => {
     const validPaths = filePaths.filter((path) => existsSync(path));
 
     return canceled ? [] : validPaths;
+});
+
+/**
+ * Allow to select one image using dialog from electron
+ */
+ipcMain.handle("utils:selectLogo", async () => {
+    const { canceled, filePaths } = await dialog.showOpenDialog({
+        properties: ["openFile"],
+        filters: [
+            {
+                name: "Images",
+                extensions: ["jpg", "jpeg", "png", "webp"]
+            }
+        ]
+    });
+
+    if (canceled || filePaths.length === 0) return null;
+
+    return existsSync(filePaths[0]) ? filePaths[0] : null;
 });
 
 // MEDIA STORE:

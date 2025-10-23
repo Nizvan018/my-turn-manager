@@ -5,8 +5,10 @@ import { contextBridge, ipcRenderer } from "electron";
 import type { IpcBridge } from "./types/ipcBridge";
 
 const bridge: IpcBridge = {
-    // Media file operations
+    // Media select
     selectMediaFiles: () => ipcRenderer.invoke("utils:selectMediaFiles"),
+    selectLogo: () => ipcRenderer.invoke("utils:selectLogo"),
+    // Media store
     saveMediaPaths: (paths) => ipcRenderer.invoke("utils:saveMediaPaths", paths),
     loadMediaPaths: () => ipcRenderer.invoke("utils:loadMediaPaths"),
     saveVolume: (volume) => ipcRenderer.invoke("utils:saveVolume", volume),

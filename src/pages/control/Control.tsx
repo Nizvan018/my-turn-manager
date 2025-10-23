@@ -17,7 +17,9 @@ export default function Control() {
             <div className="flex flex-col gap-6 w-full h-full">
                 <BannerSection />
 
-                <MediaController />
+                <div className="shrink-0">
+                    <MediaController />
+                </div>
             </div>
         </div>
     )

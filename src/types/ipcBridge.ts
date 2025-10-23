@@ -8,8 +8,10 @@ import type { Turn } from "./turn.type";
  * This interface define the IPC bridge
  */
 export interface IpcBridge {
-    // Media file operations
+    // Media select
     selectMediaFiles: () => Promise<string[]>;
+    selectLogo: () => Promise<string | null>;
+    // Media store
     saveMediaPaths: (paths: string[]) => Promise<void>;
     loadMediaPaths: () => Promise<string[]>;
     saveVolume: (volume: number) => Promise<void>;
