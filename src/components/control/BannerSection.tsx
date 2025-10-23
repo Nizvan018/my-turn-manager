@@ -16,9 +16,10 @@ export default function BannerSection() {
 
         if (newPath) {
             setLogoPath(newPath);
-        }
 
-        await window.utils.saveLogoPath(newPath);
+            window.utils.sendLogoPath(newPath);
+            await window.utils.saveLogoPath(newPath);
+        }
     }
 
     // Load saved info
@@ -27,6 +28,7 @@ export default function BannerSection() {
 
         if (savedLogoPath) {
             setLogoPath(savedLogoPath);
+            window.utils.sendLogoPath(savedLogoPath);
         }
     }
 

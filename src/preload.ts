@@ -33,6 +33,9 @@ const bridge: IpcBridge = {
     onTurnAtCheckoutUpdate: (callback) => ipcRenderer.on("utils:onTurnAtCheckoutUpdate", (_event, state) => callback(state)),
     sendWaitingTurns: (state) => ipcRenderer.send("utils:sendWaitingTurns", state),
     onWaitingTurnsUpdate: (callback) => ipcRenderer.on("utils:onWaitingTurnsUpdate", (_event, state) => callback(state)),
+    // Window info communication
+    sendLogoPath: (state) => ipcRenderer.send("utils:sendLogoPath", state),
+    onLogoPathUpdated: (callback) => ipcRenderer.on("utils:onLogoPathUpdated", (_event, state) => callback(state)),
 
     removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),
 }

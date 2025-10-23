@@ -3,6 +3,7 @@ import type { BrowserWindow } from "electron";
 import type { MediaState } from "../types/mediaState.type";
 import type { TurnState } from "../types/turnState.type";
 import type { Turn } from "../types/turn.type";
+import type { InfoStoreSchema } from "./storage/infoStorage";
 
 /**
  * This function create a communication channel between the windows
@@ -43,6 +44,14 @@ export const setWindowCommunication = (controlWindow: BrowserWindow, clientWindo
     ipcMain.on("utils:sendWaitingTurns", (_event, state: Turn[]) => {
         if (clientWindow && !clientWindow.isDestroyed()) {
             clientWindow.webContents.send("utils:onWaitingTurnsUpdate", state);
+        }
+    });
+
+    // INFO COMMUNICATION:
+
+    ipcMain.on("utils:sendLogoPath", (_event, state: InfoStoreSchema["logoPath"]) => {
+        if (clientWindow && !clientWindow.isDestroyed()) {
+            clientWindow.webContents.send("utils:onLogoPathUpdated", state);
         }
     });
 }

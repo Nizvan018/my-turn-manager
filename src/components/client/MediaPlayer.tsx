@@ -113,7 +113,7 @@ export default function MediaPlayer() {
     }, [videoSrc]);
 
     return (
-        <section className="overflow-hidden w-full h-auto aspect-[16/9] rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
+        <section className="shrink-0 overflow-hidden w-full h-auto aspect-[16/9] rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
             {paths.length > 0 && currentPath && (
                 <div className="w-full h-full">
                     {mediaType === "video" ? (
