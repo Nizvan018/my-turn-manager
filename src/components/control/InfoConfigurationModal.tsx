@@ -3,13 +3,19 @@ import CustomInput from './CustomInput';
 import CustomAreaText from './CustomAreaText';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { infoConfigurationSchema } from '../../schemas/infoConfiguration.schema';
-import { useState } from 'react';
+import { infoConfigurationSchema, type InfoConfigurationType } from '../../schemas/infoConfiguration.schema';
+import { useEffect, useState } from 'react';
 import { LoaderCircle, Instagram, Facebook, Globe } from 'lucide-react';
+import { useModal } from '../../context/Modal.context';
 
-export default function InfoConfigurationModal() {
+interface Props {
+    setInfoCallback: React.Dispatch<React.SetStateAction<InfoConfigurationType>>;
+}
+
+export default function InfoConfigurationModal({ setInfoCallback }: Props) {
+    const { setModalState } = useModal();
     const [isSavingConfig, setIsSavingConfig] = useState(false);
-    const { control, handleSubmit, formState: { errors }, watch } = useForm({
+    const { control, handleSubmit, formState: { errors }, watch, reset } = useForm({
         resolver: zodResolver(infoConfigurationSchema),
         defaultValues: {
             title: "",
@@ -23,9 +29,42 @@ export default function InfoConfigurationModal() {
         }
     });
 
-    const submit = handleSubmit(data => {
-        console.log(data);
+    // Handle form submition
+    const submit = handleSubmit(async (data) => {
+        try {
+            setIsSavingConfig(true);
+
+            setInfoCallback(data);
+            await window.utils.saveInfo(data);
+
+            setModalState(null);
+        } catch (error) {
+            console.log("Error al guardar la configuración:", error);
+        } finally {
+            setIsSavingConfig(false);
+        }
     });
+
+    const loadSavedInfo = async () => {
+        try {
+            const savedInfo = await window.utils.loadInfo();
+
+            if (savedInfo) {
+                reset({
+                    title: savedInfo.title,
+                    subtitle: savedInfo.subtitle,
+                    instructionsMessage: savedInfo.instructionsMessage,
+                    socialNetworks: savedInfo.socialNetworks
+                });
+            }
+        } catch (error) {
+            console.error("Error al cargar la información:", error);
+        }
+    }
+
+    useEffect(() => {
+        loadSavedInfo();
+    }, []);
 
     return (
         <Modal
