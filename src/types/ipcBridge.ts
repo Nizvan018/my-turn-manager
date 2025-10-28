@@ -42,6 +42,8 @@ export interface IpcBridge {
     // Window info communication
     sendLogoPath: (state: InfoStoreSchema["logoPath"]) => void;
     onLogoPathUpdated: (callback: (state: InfoStoreSchema["logoPath"]) => void) => void;
+    sendInfo: (state: InfoStoreSchema["info"]) => void;
+    onInfoUpdated: (callback: (state: InfoStoreSchema["info"]) => void) => void;
 
     removeAllListeners: (channel: string) => void;
 }

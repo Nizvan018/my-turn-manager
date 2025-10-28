@@ -16,8 +16,6 @@ export default function TurnsSection() {
         window.utils.onTurnStateUpdate((newState) => {
             setTurnAtCheckout(newState.turnAtCheckout);
             setWaitingTurns(newState.waitingTurns);
-
-            console.log(newState);
         });
 
         window.utils.onTurnAtCheckoutUpdate((newTurnAtCheckout) => {

@@ -38,6 +38,8 @@ const bridge: IpcBridge = {
     // Window info communication
     sendLogoPath: (state) => ipcRenderer.send("utils:sendLogoPath", state),
     onLogoPathUpdated: (callback) => ipcRenderer.on("utils:onLogoPathUpdated", (_event, state) => callback(state)),
+    sendInfo: (state) => ipcRenderer.send("utils:sendInfo", state),
+    onInfoUpdated: (callback) => ipcRenderer.on("utils:onInfoUpdated", (_event, state) => callback(state)),
 
     removeAllListeners: (channel) => ipcRenderer.removeAllListeners(channel),
 }

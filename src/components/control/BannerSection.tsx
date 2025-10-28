@@ -48,6 +48,7 @@ export default function BannerSection() {
 
         if (savedInfo) {
             setInfo(savedInfo);
+            window.utils.sendInfo(savedInfo);
         }
     }
 

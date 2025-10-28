@@ -8,10 +8,18 @@ import { useEffect, useState } from 'react';
 import { LoaderCircle, Instagram, Facebook, Globe } from 'lucide-react';
 import { useModal } from '../../context/Modal.context';
 
+/** Component props */
 interface Props {
+    /** This function sets the local info on the front-end */
     setInfoCallback: React.Dispatch<React.SetStateAction<InfoConfigurationType>>;
 }
 
+/**
+ * Modal for local info configuration
+ * 
+ * @param {Props} props - Component props
+ * @returns JSX.Element
+ */
 export default function InfoConfigurationModal({ setInfoCallback }: Props) {
     const { setModalState } = useModal();
     const [isSavingConfig, setIsSavingConfig] = useState(false);
@@ -35,6 +43,8 @@ export default function InfoConfigurationModal({ setInfoCallback }: Props) {
             setIsSavingConfig(true);
 
             setInfoCallback(data);
+
+            window.utils.sendInfo(data);
             await window.utils.saveInfo(data);
 
             setModalState(null);
@@ -45,6 +55,7 @@ export default function InfoConfigurationModal({ setInfoCallback }: Props) {
         }
     });
 
+    // Load the saved local info
     const loadSavedInfo = async () => {
         try {
             const savedInfo = await window.utils.loadInfo();

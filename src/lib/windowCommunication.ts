@@ -54,4 +54,10 @@ export const setWindowCommunication = (controlWindow: BrowserWindow, clientWindo
             clientWindow.webContents.send("utils:onLogoPathUpdated", state);
         }
     });
+
+    ipcMain.on("utils:sendInfo", (_event, state: InfoStoreSchema["info"]) => {
+        if (clientWindow && !clientWindow.isDestroyed()) {
+            clientWindow.webContents.send("utils:onInfoUpdated", state);
+        }
+    });
 }
