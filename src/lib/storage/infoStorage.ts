@@ -1,9 +1,11 @@
 import Store, { type Schema } from "electron-store";
+import type { InfoConfigurationType } from "../../schemas/infoConfiguration.schema";
 
 /** Info store schema type */
 export type InfoStoreSchema = {
     /** Info path */
     logoPath: string | null;
+    info: InfoConfigurationType;
 }
 
 /** Info store schema */
@@ -14,6 +16,37 @@ const schema: Schema<InfoStoreSchema> = {
             { type: "null" }
         ],
         default: null
+    },
+    info: {
+        type: "object",
+        properties: {
+            title: { type: "string", default: "" },
+            subtitle: { type: "string", default: "" },
+            instructionsMessage: { type: "string", default: "" },
+            socialNetworks: {
+                type: "object",
+                properties: {
+                    instagram: { type: "string", default: "" },
+                    facebook: { type: "string", default: "" },
+                    web: { type: "string", default: "" }
+                },
+                default: {
+                    instagram: "",
+                    facebook: "",
+                    web: ""
+                }
+            }
+        },
+        default: {
+            title: "",
+            subtitle: "",
+            instructionsMessage: "",
+            socialNetworks: {
+                instagram: "",
+                facebook: "",
+                web: ""
+            }
+        }
     }
 }
 
@@ -39,4 +72,22 @@ export const saveLogoPath = (logoPath: InfoStoreSchema["logoPath"]) => {
  */
 export const loadLogoPath = (): InfoStoreSchema["logoPath"] => {
     return infoStore.get("logoPath") ?? null;
+}
+
+/**
+ * Save the local info
+ * 
+ * @param {InfoStoreSchema["info"]} data - Info data tu store
+ */
+export const saveInfo = (data: InfoStoreSchema["info"]) => {
+    infoStore.set("info", data);
+}
+
+/**
+ * Get the loca info stored
+ * 
+ * @returns Local info stored
+ */
+export const loadInfo = (): InfoStoreSchema["info"] => {
+    return infoStore.get("info");
 }

@@ -25,6 +25,8 @@ export interface IpcBridge {
     // Info store
     saveLogoPath: (logoPath: InfoStoreSchema["logoPath"]) => Promise<void>;
     loadLogoPath: () => Promise<InfoStoreSchema["logoPath"]>;
+    saveInfo: (data: InfoStoreSchema["info"]) => Promise<void>;
+    loadInfo: () => Promise<InfoStoreSchema["info"]>;
     // Window file communication
     sendMediaState: (state: MediaState) => void;
     onMediaStateUpdate: (callback: (state: MediaState) => void) => void;

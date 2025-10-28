@@ -8,7 +8,7 @@ export const infoConfigurationSchema = z.object({
         instagram: z.string("Inválido"),
         facebook: z.string("Inválido"),
         web: z.string("Inválido")
-    }).optional()
+    })
 });
 
 export type InfoConfigurationType = z.infer<typeof infoConfigurationSchema>;

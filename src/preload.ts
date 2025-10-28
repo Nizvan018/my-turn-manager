@@ -21,6 +21,8 @@ const bridge: IpcBridge = {
     // Info store
     saveLogoPath: (logoPath) => ipcRenderer.invoke("utils:saveLogoPath", logoPath),
     loadLogoPath: () => ipcRenderer.invoke("utils:loadLogoPath"),
+    saveInfo: (data) => ipcRenderer.invoke("utils:saveInfo", data),
+    loadInfo: () => ipcRenderer.invoke("utils:loadInfo"),
     // Window file communication
     sendMediaState: (state) => ipcRenderer.send("utils:sendMediaState", state),
     onMediaStateUpdate: (callback) => ipcRenderer.on("utils:onMediaStateUpdate", (_event, state) => callback(state)),
