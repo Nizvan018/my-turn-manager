@@ -1,6 +1,8 @@
 import { ImageOff, SquarePen, MousePointerClick } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toMediaUrl } from "../../lib/mediaHelpers";
+import InfoConfigurationModal from "./InfoConfigurationModal";
+import { useModal } from "../../context/Modal.context";
 
 /**
  * The banner section of the control page
@@ -8,6 +10,7 @@ import { toMediaUrl } from "../../lib/mediaHelpers";
  * @returns JSX.Element
  */
 export default function BannerSection() {
+    const { setModalState } = useModal();
     const [logoPath, setLogoPath] = useState<string | null>(null);
 
     // Handle the logo selection
@@ -63,7 +66,10 @@ export default function BannerSection() {
             </button>
 
             <article className="relative flex flex-col gap-6 w-full h-full p-6 rounded-[48px] border border-curious-blue-950/10 bg-gradient-to-br from-curious-blue-500/15 from-20% to-brilliant-rose-500/15">
-                <button className="absolute right-6 flex items-center gap-2 text-sm p-4 rounded-full border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm duration-200 ease-in-out hover:bg-curious-blue-950/10 cursor-pointer">
+                <button
+                    onClick={() => setModalState("info-configuration-modal")}
+                    className="absolute right-6 flex items-center gap-2 text-sm p-4 rounded-full border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm duration-200 ease-in-out hover:bg-curious-blue-950/10 cursor-pointer"
+                >
                     <span>Editar información</span>
                     <SquarePen className="size-5" />
                 </button>
@@ -72,6 +78,8 @@ export default function BannerSection() {
 
                 <span>More text...</span>
             </article>
+
+            <InfoConfigurationModal />
         </section>
     )
 }

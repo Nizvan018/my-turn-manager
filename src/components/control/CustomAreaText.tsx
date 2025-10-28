@@ -10,12 +10,8 @@ interface Props<T extends FieldValues, F extends FieldValues> {
     label?: string;
     /** Placeholder of the field */
     placeholder?: string;
-    /** Value type of the field */
-    type?: React.HTMLInputTypeAttribute;
-    /** Min value for number field */
-    min?: number;
-    /** Max value for number field */
-    max?: number;
+    /** Number of rows of the field */
+    rows?: number;
     /** Max length value of the field */
     maxLength?: number;
     /** Indicate whether the field is disabled or not */
@@ -27,21 +23,19 @@ interface Props<T extends FieldValues, F extends FieldValues> {
 }
 
 /**
- * This custom input can use a react-hook-form Controller for forms and validations
+ * This custom area text can use a react-hook-form Controller for forms and validations
  * 
  * @param {Props} props - Component props 
  * @returns JSX.Element
  */
-export default function CustomInput<
+export default function CustomAreaText<
     T extends FieldValues, F extends FieldValues
 >({
     name,
     control,
     label,
     placeholder,
-    type = "text",
-    min,
-    max,
+    rows,
     maxLength,
     disabled,
     error,
@@ -62,16 +56,14 @@ export default function CustomInput<
                     name={name}
                     control={control}
                     render={({ field }) => (
-                        <input
+                        <textarea
                             id={name}
-                            type={type}
                             {...field}
-                            min={min}
-                            max={max}
+                            rows={rows}
                             maxLength={maxLength}
                             disabled={disabled}
                             placeholder={placeholder}
-                            className="outline-none font-medium placeholder:text-curious-blue-950/30"
+                            className="outline-none font-medium placeholder:text-curious-blue-950/30 resize-none"
                         />
                     )}
                 />
