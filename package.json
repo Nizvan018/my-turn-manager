@@ -47,6 +47,7 @@
     "electron-store": "^10.1.0",
     "lucide-react": "^0.545.0",
     "mime": "^4.0.7",
+    "motion": "^12.23.24",
     "postcss": "^8.5.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

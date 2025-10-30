@@ -1,6 +1,7 @@
 import { useModal } from "../../context/Modal.context";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 
 /** Component props */
 interface Props {
@@ -43,28 +44,40 @@ export default function Modal({ id, children, onCloseModal, isCloseButtonDisable
     }
 
     // If modalRoot doesn't exist
-    if (!modalRoot || modalState !== id) return null;
+    if (!modalRoot) return null;
 
     return createPortal(
-        <div
-            onClick={closeModal}
-            className="z-[1000] fixed top-0 left-0 flex items-center justify-center w-full h-screen px-4 bg-curious-blue-950/20"
-        >
-            <div
-                onClick={handleContentClick}
-                className={`${className} relative rounded-[48px] p-8 bg-white shadow-lg`}
-            >
-                <button
+        <AnimatePresence>
+            {modalState === id && (
+                <motion.div
                     onClick={closeModal}
-                    disabled={isCloseButtonDisabled}
-                    className="absolute disabled:opacity-50 top-8 right-8 text-rose-500 cursor-pointer transition hover:text-rose-600"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="z-[1000] fixed top-0 left-0 flex items-center justify-center w-full h-screen px-4 bg-curious-blue-950/20"
                 >
-                    <X size={24} />
-                </button>
+                    <motion.div
+                        onClick={handleContentClick}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.15, ease: "easeInOut" }}
+                        className={`${className} relative rounded-[48px] p-8 bg-white shadow-lg`}
+                    >
+                        <button
+                            onClick={closeModal}
+                            disabled={isCloseButtonDisabled}
+                            className="absolute disabled:opacity-50 top-8 right-8 text-rose-500 cursor-pointer transition hover:text-rose-600"
+                        >
+                            <X size={24} />
+                        </button>
 
-                {children}
-            </div>
-        </div>,
+                        {children}
+                    </motion.div>
+                </motion.div>
+            )}
+        </AnimatePresence>,
         modalRoot
     );
 }
