@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { FileVideoCamera, SkipBack, Play, Pause, SkipForward, Volume2, VolumeOff } from "lucide-react";
 import { getCountOfMediaTypes, getMediaType, getFileName } from "../../lib/mediaHelpers";
 import { MediaState } from "../../types/mediaState.type";
+import MediaThumbnail from "./MediaThumbnail";
 
 /**
  * The media controller component for the control window
@@ -125,6 +126,52 @@ export default function MediaController() {
         });
     }
 
+    // Handle go to specific video
+    const goToIndex = (index: number) => {
+        if (paths.length === 0) return;
+
+        setMediaState(prev => {
+            const newState = {
+                ...prev,
+                currentIndex: index,
+                isPlaying: true
+            }
+
+            window.utils.sendMediaState(newState);
+
+            return newState;
+        });
+    }
+
+    // Remove an specific video of the list
+    const removeFile = async (index: number) => {
+        let pathsToSave: string[] = [];
+
+        setMediaState(prev => {
+            const newPaths = prev.paths.filter((_, i) => i !== index);
+            pathsToSave = newPaths;
+
+            const newIndex = index === prev.currentIndex
+                ? Math.min(index, newPaths.length - 1)
+                : index < prev.currentIndex
+                    ? prev.currentIndex - 1
+                    : prev.currentIndex;
+
+            const newState = {
+                ...prev,
+                paths: newPaths,
+                currentIndex: newPaths.length > 0 ? newIndex : 0,
+                isPlaying: newPaths.length > 0 ? prev.isPlaying : false
+            }
+
+            window.utils.sendMediaState(newState);
+
+            return newState;
+        });
+
+        await window.utils.saveMediaPaths(pathsToSave);
+    }
+
     // Handle volume change for videos
     const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newVolume = parseInt(e.target.value);
@@ -211,11 +258,9 @@ export default function MediaController() {
     }, []);
 
     return (
-        <section className="overflow-y-auto flex flex-col items-center gap-4 w-full h-auto aspect-[16/9] p-6 rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
-            <h2 className="text-curious-blue-950/60 font-light">Configuración del reproductor</h2>
-
+        <section className="overflow-y-auto flex gap-4 w-full h-auto aspect-[16/9] px-6 rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
             {/* CONTROL CARD */}
-            <div className="flex flex-col gap-8 w-[420px] h-full min-h-fit p-6 rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5">
+            <div className="flex flex-col gap-8 min-w-[420px] max-w-[420px] h-[calc(100%-48px)] min-h-fit my-6 p-6 rounded-3xl border border-curious-blue-950/10 bg-curious-blue-950/5">
                 {/* HEADER */}
                 <header className="flex flex-col items-center gap-4">
                     <button
@@ -323,6 +368,26 @@ export default function MediaController() {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            {/* VIDEO LIST */}
+            <div className="overflow-y-auto custom-scroll scroll-fade flex flex-col gap-4 w-full h-full max-h-[calc(100%-8px)] my-1 py-5 pr-2">
+                {paths.length === 0 && (
+                    <div className="flex items-center justify-center w-full h-32 px-6 rounded-3xl border border-curious-blue-950/10 bg-curious-blue-950/5">
+                        <span className="text-curious-blue-950/60 text-center">No hay ningún video/imagen seleccionado/a</span>
+                    </div>
+                )}
+
+                {paths.map((path, index) => (
+                    <MediaThumbnail
+                        key={path}
+                        path={path}
+                        index={index}
+                        isPlaying={index === currentIndex}
+                        goToIndexCallback={goToIndex}
+                        removeFileCallback={removeFile}
+                    />
+                ))}
             </div>
         </section>
     )
