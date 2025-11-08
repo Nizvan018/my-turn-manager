@@ -34,7 +34,7 @@ export default function TurnsSection() {
     }, []);
 
     return (
-        <section className="overflow-y-hidden flex flex-col gap-6 w-full max-w-1/4 h-full p-6 rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
+        <section className="overflow-y-hidden flex flex-col gap-6 w-full max-w-[27%] h-full p-6 rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
             {turnAtCheckout ? (
                 <SelectedTurn turn={turnAtCheckout.formattedTurn} />
             ) : (

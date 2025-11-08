@@ -221,7 +221,7 @@ export default function TurnsSection() {
     }, []);
 
     return (
-        <section className="flex flex-col gap-6 w-full max-w-1/4 h-full">
+        <section className="flex flex-col gap-6 w-full max-w-[27%] h-full">
             <div className="overflow-y-hidden flex flex-col gap-6 w-full h-full pt-6 rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
                 {turnAtCheckout ? (
                     <div className="px-6">

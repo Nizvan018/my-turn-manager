@@ -58,13 +58,13 @@ export default function BannerSection() {
             </div>
 
             {/* LOCAL INFO */}
-            <article className="flex flex-col gap-4 w-full h-full p-6 rounded-[48px] border border-curious-blue-950/10 bg-gradient-to-br from-curious-blue-500/15 from-20% to-brilliant-rose-500/15">
+            <article className="flex flex-col gap-3 w-full h-full p-6 rounded-[48px] border border-curious-blue-950/10 bg-gradient-to-br from-curious-blue-500/15 from-20% to-brilliant-rose-500/15">
                 <h1 className="text-3xl font-semibold">{info.title}</h1>
 
                 <div className="flex gap-4 w-full h-full">
                     {/* INSTRUCTIONS MESSAGE */}
                     {hasInstructions && (
-                        <div className="flex flex-col gap-4 w-full h-full">
+                        <div className="flex flex-col gap-2 w-full h-full">
                             <h2 className="font-semibold">{info.subtitle}</h2>
                             <p className="whitespace-pre-line text-curious-blue-950/60">{info.instructionsMessage}</p>
                         </div>
@@ -76,7 +76,7 @@ export default function BannerSection() {
 
                     {/* SOCIAL NETWORKS */}
                     {hasSocialNetworks && (
-                        <div className="flex flex-col gap-4 w-full h-full">
+                        <div className="flex flex-col gap-2 w-full h-full">
                             <h2 className="font-semibold">Redes sociales</h2>
                             <ul className="flex flex-col gap-2">
                                 {info.socialNetworks.instagram && (

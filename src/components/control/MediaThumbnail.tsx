@@ -1,8 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Play, Trash } from "lucide-react";
+import { Play, Trash, GripVertical } from "lucide-react";
 import { getFileName, getMediaType, toMediaUrl } from "../../lib/mediaHelpers";
-import { GripVertical } from "lucide-react";
 
 /** Component props */
 interface Props {

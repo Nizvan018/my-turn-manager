@@ -84,7 +84,7 @@ export default function BannerSection() {
             </button>
 
             {/* LOCAL INFO ARTICLE */}
-            <article className="relative flex flex-col gap-4 w-full h-full p-6 rounded-[48px] border border-curious-blue-950/10 bg-gradient-to-br from-curious-blue-500/15 from-20% to-brilliant-rose-500/15">
+            <article className="relative flex flex-col gap-3 w-full h-full p-6 rounded-[48px] border border-curious-blue-950/10 bg-gradient-to-br from-curious-blue-500/15 from-20% to-brilliant-rose-500/15">
                 <button
                     onClick={() => setModalState("info-configuration-modal")}
                     className="absolute right-6 flex items-center gap-2 text-sm p-4 rounded-full border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm duration-200 ease-in-out hover:bg-curious-blue-950/10 cursor-pointer"
@@ -97,7 +97,7 @@ export default function BannerSection() {
 
                 <div className="flex gap-4 w-full h-full">
                     {/* INSTRUCTIONS MESSAGE */}
-                    <div className="flex flex-col gap-4 w-full h-full">
+                    <div className="flex flex-col gap-2 w-full h-full">
                         <h2 className="font-semibold">{info.subtitle || "Subtítulo sin configurar"}</h2>
                         <p className="whitespace-pre-line text-curious-blue-950/60">{info.instructionsMessage || "Instrucciones/mensaje sin configurar"}</p>
                     </div>
@@ -105,7 +105,7 @@ export default function BannerSection() {
                     <div className="w-px h-full bg-curious-blue-950/30"></div>
 
                     {/* SOCIAL NETWORKS */}
-                    <div className="flex flex-col gap-4 w-full h-full">
+                    <div className="flex flex-col gap-2 w-full h-full">
                         <h2 className="font-semibold">Redes sociales</h2>
                         <ul className="flex flex-col gap-2">
                             <li className="flex items-center gap-2">
