@@ -3,6 +3,8 @@ import { FileVideoCamera, SkipBack, Play, Pause, SkipForward, Volume2, VolumeOff
 import { getCountOfMediaTypes, getMediaType, getFileName } from "../../lib/mediaHelpers";
 import { MediaState } from "../../types/mediaState.type";
 import MediaThumbnail from "./MediaThumbnail";
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 /**
  * The media controller component for the control window
@@ -22,6 +24,12 @@ export default function MediaController() {
     const { imageCount, videoCount } = getCountOfMediaTypes(paths);
     const currentPath = paths[currentIndex] || null;
     const currentMediaType = currentPath ? getMediaType(currentPath) : null;
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates
+        })
+    );
 
     // Handle the media file selection
     const handleSelectFiles = async () => {
@@ -170,6 +178,44 @@ export default function MediaController() {
         });
 
         await window.utils.saveMediaPaths(pathsToSave);
+    }
+
+    // Handle drag and drop event to reorganize the paths
+    const handleDragEnd = async (event: DragEndEvent) => {
+        const { active, over } = event;
+
+        if (active.id !== over.id) {
+            let pathsToSave: string[] = [];
+
+            setMediaState(prev => {
+                const oldIndex = prev.paths.indexOf(active.id as string);
+                const newIndex = prev.paths.indexOf(over.id as string);
+                const newPaths = arrayMove(prev.paths, oldIndex, newIndex)
+                pathsToSave = newPaths;
+
+                let newCurrentIndex = prev.currentIndex;
+
+                if (oldIndex === prev.currentIndex) {
+                    newCurrentIndex = newIndex;
+                } else if (oldIndex < prev.currentIndex && newIndex >= prev.currentIndex) {
+                    newCurrentIndex = prev.currentIndex - 1;
+                } else if (oldIndex > prev.currentIndex && newIndex <= prev.currentIndex) {
+                    newCurrentIndex = prev.currentIndex + 1;
+                }
+
+                const newState = {
+                    ...prev,
+                    paths: newPaths,
+                    currentIndex: newCurrentIndex
+                }
+
+                window.utils.sendMediaState(newState);
+
+                return newState;
+            });
+
+            await window.utils.saveMediaPaths(pathsToSave);
+        }
     }
 
     // Handle volume change for videos
@@ -378,16 +424,27 @@ export default function MediaController() {
                     </div>
                 )}
 
-                {paths.map((path, index) => (
-                    <MediaThumbnail
-                        key={path}
-                        path={path}
-                        index={index}
-                        isPlaying={index === currentIndex}
-                        goToIndexCallback={goToIndex}
-                        removeFileCallback={removeFile}
-                    />
-                ))}
+                <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleDragEnd}
+                >
+                    <SortableContext
+                        items={paths}
+                        strategy={verticalListSortingStrategy}
+                    >
+                        {paths.map((path, index) => (
+                            <MediaThumbnail
+                                key={path}
+                                path={path}
+                                index={index}
+                                isPlaying={index === currentIndex}
+                                goToIndexCallback={goToIndex}
+                                removeFileCallback={removeFile}
+                            />
+                        ))}
+                    </SortableContext>
+                </DndContext>
             </div>
         </section>
     )
