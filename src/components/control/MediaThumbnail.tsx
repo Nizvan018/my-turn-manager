@@ -2,6 +2,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Play, Trash } from "lucide-react";
 import { getFileName, getMediaType, toMediaUrl } from "../../lib/mediaHelpers";
+import { GripVertical } from "lucide-react";
 
 /** Component props */
 interface Props {
@@ -28,11 +29,18 @@ export default function MediaThumbnail({ path, index, isPlaying, goToIndexCallba
             ref={setNodeRef}
             style={style}
             {...attributes}
-            {...listeners}
         >
-            <div className={`${isPlaying ? "from-curious-blue-500/10" : "from-curious-blue-950/5"} flex gap-4 p-3 rounded-3xl border border-curious-blue-950/10 bg-radial-[at_0%_50%] from-60% to-curious-blue-950/5 transition-colors`}>
+            <div className={`${isPlaying ? "from-curious-blue-500/10" : "from-curious-blue-950/5"} flex py-3 p-1 pr-3 rounded-3xl border border-curious-blue-950/10 bg-radial-[at_0%_50%] from-60% to-curious-blue-950/5 transition-colors`}>
+                {/* HANDLE FOR DRAGGING */}
+                <div
+                    {...listeners}
+                    className="flex items-center min-h-full rounded-md cursor-grab active:cursor-grabbing transition hover:bg-curious-blue-950/5"
+                >
+                    <GripVertical className="size-5 text-curious-blue-950/60" />
+                </div>
+
                 {/* THUMBNAIL */}
-                <div className="relative min-w-40 max-w-44 h-30 rounded-xl overflow-hidden bg-curious-blue-950/5">
+                <div className="relative min-w-40 max-w-44 h-30 ml-1 mr-4 rounded-xl overflow-hidden bg-curious-blue-950/5">
                     {mediaType === "image" ? (
                         <img
                             src={toMediaUrl(path)}
