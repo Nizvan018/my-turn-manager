@@ -115,7 +115,7 @@ export default function MediaPlayer() {
     return (
         <section className="shrink-0 overflow-hidden w-full h-auto aspect-[16/9] rounded-[48px] border border-curious-blue-950/10 bg-curious-blue-950/5 backdrop-blur-sm">
             {paths.length > 0 && currentPath && (
-                <div className="w-full h-full">
+                <div className="flex items-center justify-center w-full h-full">
                     {mediaType === "video" ? (
                         videoSrc && (
                             <video
@@ -123,18 +123,18 @@ export default function MediaPlayer() {
                                 ref={videoRef}
                                 src={videoSrc}
                                 onEnded={handleMediaEnded}
-                                className="w-full aspect-[16/9] object-cover"
+                                className="max-w-full max-h-full object-contain"
                             />
                         )
                     ) : (
                         <img
                             src={toMediaUrl(currentPath)}
                             alt="media"
-                            className="w-full aspect-[16/9] object-cover"
+                            className="max-w-full max-h-full object-contain"
                         />
                     )}
                 </div>
             )}
-        </section >
+        </section>
     )
 }
