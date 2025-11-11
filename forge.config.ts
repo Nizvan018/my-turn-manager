@@ -10,9 +10,28 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
+    icon: "./public/icons/icon"
   },
   rebuildConfig: {},
-  makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
+  makers: [
+    new MakerSquirrel({
+      setupIcon: "./public/icons/icon.ico",
+      name: "my_turn_manager",
+      authors: "Nizvan Monteon Ricardez",
+      description: "Simple app for managing turns in stores"
+    }),
+    new MakerZIP({}, ['darwin']),
+    new MakerRpm({
+      options: {
+        icon: "./public/icons/icon.png"
+      }
+    }),
+    new MakerDeb({
+      options: {
+        icon: "./public/icons/icon.png"
+      }
+    })
+  ],
   plugins: [
     new VitePlugin({
       // `build` can specify multiple entry builds, which can be Main process, Preload scripts, Worker process, etc.
