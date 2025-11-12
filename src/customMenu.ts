@@ -1,5 +1,4 @@
-import { app, BrowserWindow, Menu, MenuItemConstructorOptions } from "electron";
-import { shell } from "electron";
+import { app, BrowserWindow, Menu, MenuItemConstructorOptions, shell } from "electron";
 
 /**
  * Create a custom menu for the control window
