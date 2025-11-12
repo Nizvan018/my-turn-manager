@@ -4,6 +4,7 @@ import type { TurnConfigurationType } from "../schemas/turnConfiguration.schema"
 import { saveMediaPaths, loadMediaPaths, saveVolume, loadVolume } from "./storage/mediaStorage";
 import { saveTurnConfiguration, loadTurnConfiguration, saveTurns, loadTurns, type SaveTurnsProps } from "./storage/turnStorage";
 import { loadLogoPath, saveLogoPath, saveInfo, loadInfo, type InfoStoreSchema } from "./storage/infoStorage";
+import { getLicenses } from "./licensesHelper";
 
 // MEDIA SELECT
 
@@ -133,4 +134,10 @@ ipcMain.handle("utils:saveInfo", (_event, data: InfoStoreSchema["info"]) => {
  */
 ipcMain.handle("utils:loadInfo", () => {
     return loadInfo();
+});
+
+// LICENSES:
+
+ipcMain.handle("utils:getLicenses", () => {
+    return getLicenses();
 });
