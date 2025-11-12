@@ -6,6 +6,7 @@ import fs from "fs";
 import mime from "mime";
 import { Readable } from 'stream';
 import { setWindowCommunication } from './lib/windowCommunication';
+import { createControlMenu, createClientMenu } from "./customMenu";
 
 interface CreateAppWindowProps {
   route: string,
@@ -51,6 +52,14 @@ const createAppWindow = ({
       sandbox: false
     }
   });
+
+  if (route === "control") {
+    const controlMenu = createControlMenu();
+    appWindow.setMenu(controlMenu);
+  } else {
+    const clientMenu = createClientMenu();
+    appWindow.setMenu(clientMenu);
+  }
 
   appWindow.once("ready-to-show", () => {
     // appWindow.maximize();
