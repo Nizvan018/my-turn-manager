@@ -6,11 +6,32 @@ import { MakerRpm } from '@electron-forge/maker-rpm';
 import { VitePlugin } from '@electron-forge/plugin-vite';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
+import { execSync } from "child_process";
 
 const config: ForgeConfig = {
+  hooks: {
+    prePackage: async () => {
+      console.log("Generating third-party licenses...")
+
+      try {
+        execSync("npm run generate-licenses", {
+          stdio: "inherit",
+          cwd: __dirname
+        });
+
+        console.log("Licenses generated successfully")
+      } catch (error) {
+        console.error("Error generating licenses:", error);
+        console.log("Continuing without updated licenses file")
+      }
+    }
+  },
   packagerConfig: {
     asar: true,
-    icon: "./public/icons/icon"
+    icon: "./public/icons/icon",
+    extraResource: [
+      "./LICENSES_THIRD_PARTY.txt"
+    ]
   },
   rebuildConfig: {},
   makers: [

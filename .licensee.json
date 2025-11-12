@@ -1,0 +1,27 @@
+{
+  "licenses": {
+    "spdx": [
+      "0BSD",
+      "Apache-2.0",
+      "BlueOak-1.0.0",
+      "BSD-2-Clause",
+      "BSD-3-Clause",
+      "CC-BY-4.0",
+      "CC0-1.0",
+      "ISC",
+      "MIT",
+      "MPL-2.0",
+      "OFL-1.1",
+      "Unlicense"
+    ]
+  },
+  "corrections": false,
+  "ignore": [
+    {
+      "prefix": "atomically"
+    },
+    {
+      "prefix": "stubborn-fs"
+    }
+  ]
+}
