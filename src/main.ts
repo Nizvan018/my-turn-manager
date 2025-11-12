@@ -1,4 +1,4 @@
-import { app, BrowserWindow, protocol, session } from 'electron';
+import { app, BrowserWindow, dialog, Menu, protocol, session } from 'electron';
 import path from 'node:path';
 import started from 'electron-squirrel-startup';
 import "./lib/ipcHandlers";
@@ -25,6 +25,10 @@ const CLIENT_DATA = {
   position: { x: 64, y: 64 }
 }
 
+// Window global references
+let controlWindow: BrowserWindow | null = null;
+let clientWindow: BrowserWindow | null = null;
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
   app.quit();
@@ -45,6 +49,7 @@ const createAppWindow = ({
     height: 720,
     x: position.x,
     y: position.y,
+    closable: route === "control",
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -53,17 +58,43 @@ const createAppWindow = ({
     }
   });
 
-  if (route === "control") {
-    const controlMenu = createControlMenu();
-    appWindow.setMenu(controlMenu);
-  } else {
-    const clientMenu = createClientMenu();
-    appWindow.setMenu(clientMenu);
+  // Only for Windows and Linux (not macOS)
+  if (process.platform !== "darwin") {
+    if (route === "control") {
+      const controlMenu = createControlMenu();
+      appWindow.setMenu(controlMenu);
+    } else {
+      const clientMenu = createClientMenu();
+      appWindow.setMenu(clientMenu);
+    }
   }
 
   appWindow.once("ready-to-show", () => {
-    // appWindow.maximize();
     appWindow.show();
+  });
+
+  // Handle window close
+  appWindow.on("close", (event) => {
+    if (route === "client") {
+      event.preventDefault();
+    } else {
+      const choice = dialog.showMessageBoxSync(appWindow, {
+        type: "question",
+        buttons: ["Cancelar", "Cerrar"],
+        title: "Confirmar cierre",
+        message: "¿Estás seguro de que deseas cerrar la aplicación?",
+        defaultId: 1,
+        cancelId: 0
+      });
+
+      if (choice === 1) {
+        if (clientWindow && !clientWindow.isDestroyed()) {
+          clientWindow.destroy();
+        }
+      } else {
+        event.preventDefault();
+      }
+    }
   });
 
   // and load the index.html of the app.
@@ -76,7 +107,7 @@ const createAppWindow = ({
     );
   }
 
-  console.log(`${MAIN_WINDOW_VITE_DEV_SERVER_URL}/#/${route}`);
+  // console.log(`${MAIN_WINDOW_VITE_DEV_SERVER_URL}/#/${route}`);
 
   return appWindow;
 };
@@ -111,8 +142,23 @@ app.on('ready', () => {
     });
   }
 
-  const controlWindow = createAppWindow(CONTROL_DATA);
-  const clientWindow = createAppWindow(CLIENT_DATA);
+  controlWindow = createAppWindow(CONTROL_DATA);
+  clientWindow = createAppWindow(CLIENT_DATA);
+
+  // macOS menu handling
+  if (process.platform === "darwin") {
+    Menu.setApplicationMenu(createControlMenu());
+
+    // Change the menu based on the focused window:
+
+    controlWindow.on("focus", () => {
+      Menu.setApplicationMenu(createControlMenu());
+    });
+
+    clientWindow.on("focus", () => {
+      Menu.setApplicationMenu(createClientMenu());
+    });
+  }
 
   setWindowCommunication(controlWindow, clientWindow);
 
@@ -172,7 +218,7 @@ app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    const controlWindow = createAppWindow(CONTROL_DATA);
-    const clientWindow = createAppWindow(CLIENT_DATA);
+    controlWindow = createAppWindow(CONTROL_DATA);
+    clientWindow = createAppWindow(CLIENT_DATA);
   }
 });
