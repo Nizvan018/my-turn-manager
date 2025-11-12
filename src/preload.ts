@@ -23,6 +23,8 @@ const bridge: IpcBridge = {
     loadLogoPath: () => ipcRenderer.invoke("utils:loadLogoPath"),
     saveInfo: (data) => ipcRenderer.invoke("utils:saveInfo", data),
     loadInfo: () => ipcRenderer.invoke("utils:loadInfo"),
+    // App info
+    onOpenAppInfoModal: (callback) => ipcRenderer.on("utils:onOpenAppInfoModal", callback),
     // Licenses
     getLicenses: () => ipcRenderer.invoke("utils:getLicenses"),
     onOpenLicensesModal: (callback) => ipcRenderer.on("utils:onOpenLicensesModal", callback),

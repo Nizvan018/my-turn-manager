@@ -1,4 +1,5 @@
 import { app, BrowserWindow, Menu, MenuItemConstructorOptions } from "electron";
+import { shell } from "electron";
 
 /**
  * Create a custom menu for the control window
@@ -69,6 +70,12 @@ export const createControlMenu = () => {
                         if (mainWindow) {
                             mainWindow.webContents.send("utils:onOpenAppInfoModal");
                         }
+                    }
+                },
+                {
+                    label: "Repositorio de GitHub",
+                    click: async () => {
+                        await shell.openExternal("https://github.com/Nizvan018/my-turn-manager")
                     }
                 },
                 {

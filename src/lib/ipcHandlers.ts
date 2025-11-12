@@ -138,6 +138,9 @@ ipcMain.handle("utils:loadInfo", () => {
 
 // LICENSES:
 
+/**
+ * Get the licenses from the txt file
+ */
 ipcMain.handle("utils:getLicenses", () => {
     return getLicenses();
 });

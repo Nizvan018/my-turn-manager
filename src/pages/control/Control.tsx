@@ -2,6 +2,7 @@ import TurnsSection from "../../components/control/TurnSection";
 import BannerSection from "../../components/control/BannerSection";
 import MediaController from "../../components/control/MediaController";
 import LicensesModal from "../../components/control/LicensesModal";
+import AppInfoModal from "../../components/control/AppInfoModal";
 
 /**
  * Control page of the control window
@@ -24,6 +25,7 @@ export default function Control() {
             </div>
 
             <LicensesModal />
+            <AppInfoModal />
         </div>
     )
 }

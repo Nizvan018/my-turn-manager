@@ -27,6 +27,8 @@ export interface IpcBridge {
     loadLogoPath: () => Promise<InfoStoreSchema["logoPath"]>;
     saveInfo: (data: InfoStoreSchema["info"]) => Promise<void>;
     loadInfo: () => Promise<InfoStoreSchema["info"]>;
+    // App info
+    onOpenAppInfoModal: (callback: () => void) => void;
     // Licenses
     getLicenses: () => Promise<{ ok: true; data: string } | { ok: false; error: string }>;
     onOpenLicensesModal: (callback: () => void) => void;
