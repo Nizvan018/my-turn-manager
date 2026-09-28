@@ -1,0 +1,1108 @@
+@alloc/quick-lru@5.2.0
+  Approved by license
+  Terms: MIT
+  Repository: sindresorhus/quick-lru
+  Homepage: None listed
+  Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+  Contributors: None listed
+
+@babel/code-frame@7.27.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-code-frame
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/compat-data@7.28.4
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: None listed
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/core@7.28.4
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-core
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/generator@7.28.3
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-generator
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/helper-compilation-targets@7.27.2
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: None listed
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/helper-globals@7.28.0
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: None listed
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/helper-module-imports@7.27.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-helper-module-imports
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/helper-module-transforms@7.28.3
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-helper-module-transforms
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/helper-plugin-utils@7.27.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-helper-plugin-utils
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/helper-string-parser@7.27.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-helper-string-parser
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/helper-validator-identifier@7.27.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: None listed
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/helper-validator-option@7.27.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: None listed
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/helpers@7.28.4
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-helpers
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/parser@7.28.4
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-parser
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/plugin-transform-react-jsx-self@7.27.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-plugin-transform-react-jsx-self
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/plugin-transform-react-jsx-source@7.27.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-plugin-transform-react-jsx-source
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/template@7.27.2
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-template
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/traverse@7.28.4
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-traverse
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@babel/types@7.28.4
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/babel/babel.git
+  Homepage: https://babel.dev/docs/en/next/babel-types
+  Author: The Babel Team (https://babel.dev/team)
+  Contributors: None listed
+
+@dnd-kit/accessibility@3.1.1
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/clauderic/dnd-kit.git
+  Homepage: None listed
+  Author: Claudéric Demers
+  Contributors: None listed
+
+@dnd-kit/core@6.3.1
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/clauderic/dnd-kit.git
+  Homepage: None listed
+  Author: Claudéric Demers
+  Contributors: None listed
+
+@dnd-kit/sortable@10.0.0
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/clauderic/dnd-kit.git
+  Homepage: None listed
+  Author: Claudéric Demers
+  Contributors: None listed
+
+@dnd-kit/utilities@3.2.2
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/clauderic/dnd-kit.git
+  Homepage: None listed
+  Author: Claudéric Demers
+  Contributors: None listed
+
+@esbuild/win32-x64@0.21.5
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/evanw/esbuild.git
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+@fontsource-variable/lexend@5.2.9
+  Approved by license
+  Terms: OFL-1.1
+  Repository: git+https://github.com/fontsource/font-files.git
+  Homepage: https://fontsource.org/fonts/lexend
+  Author: Google Inc.
+  Contributors: None listed
+
+@hookform/resolvers@5.2.2
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/react-hook-form/resolvers.git
+  Homepage: https://react-hook-form.com
+  Author: bluebill1049 <bluebill1049@hotmail.com>
+  Contributors: None listed
+
+@isaacs/fs-minipass@4.0.1
+  Approved by license
+  Terms: ISC
+  Repository: https://github.com/npm/fs-minipass.git
+  Homepage: None listed
+  Author: Isaac Z. Schlueter
+  Contributors: None listed
+
+@jridgewell/gen-mapping@0.3.13
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/jridgewell/sourcemaps.git
+  Homepage: https://github.com/jridgewell/sourcemaps/tree/main/packages/gen-mapping
+  Author: Justin Ridgewell <justin@ridgewell.name>
+  Contributors: None listed
+
+@jridgewell/remapping@2.3.5
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/jridgewell/sourcemaps.git
+  Homepage: https://github.com/jridgewell/sourcemaps/tree/main/packages/remapping
+  Author: Justin Ridgewell <justin@ridgewell.name>
+  Contributors: None listed
+
+@jridgewell/resolve-uri@3.1.2
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/jridgewell/resolve-uri
+  Homepage: None listed
+  Author: Justin Ridgewell <justin@ridgewell.name>
+  Contributors: None listed
+
+@jridgewell/sourcemap-codec@1.5.5
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/jridgewell/sourcemaps.git
+  Homepage: https://github.com/jridgewell/sourcemaps/tree/main/packages/sourcemap-codec
+  Author: Justin Ridgewell <justin@ridgewell.name>
+  Contributors: None listed
+
+@jridgewell/trace-mapping@0.3.30
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/jridgewell/sourcemaps.git
+  Homepage: https://github.com/jridgewell/sourcemaps/tree/main/packages/trace-mapping
+  Author: Justin Ridgewell <justin@ridgewell.name>
+  Contributors: None listed
+
+@rolldown/pluginutils@1.0.0-beta.27
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/rolldown/rolldown.git
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+@rollup/rollup-win32-x64-msvc@4.50.0
+  Approved by license
+  Terms: MIT
+  Repository: rollup/rollup
+  Homepage: https://rollupjs.org/
+  Author: Lukas Taegert-Atkinson
+  Contributors: None listed
+
+@standard-schema/utils@0.3.0
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/standard-schema/standard-schema
+  Homepage: None listed
+  Author: Fabian Hiller
+  Contributors: None listed
+
+@tailwindcss/node@4.1.13
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/tailwindlabs/tailwindcss.git
+  Homepage: https://tailwindcss.com
+  Author: None listed
+  Contributors: None listed
+
+@tailwindcss/oxide@4.1.13
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/tailwindlabs/tailwindcss.git
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+@tailwindcss/oxide-win32-x64-msvc@4.1.13
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/tailwindlabs/tailwindcss.git
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+@tailwindcss/postcss@4.1.13
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/tailwindlabs/tailwindcss.git
+  Homepage: https://tailwindcss.com
+  Author: None listed
+  Contributors: None listed
+
+@types/babel__core@7.20.5
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/DefinitelyTyped/DefinitelyTyped.git
+  Homepage: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/babel__core
+  Author: None listed
+  Contributors:
+    Troy Gerwien (https://github.com/yortus)
+    Marvin Hagemeister (https://github.com/marvinhagemeister)
+    Melvin Groenhoff (https://github.com/mgroenhoff)
+    Jessica Franco (https://github.com/Jessidhia)
+    Ifiok Jr. (https://github.com/ifiokjr)
+
+@types/babel__generator@7.27.0
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/DefinitelyTyped/DefinitelyTyped.git
+  Homepage: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/babel__generator
+  Author: None listed
+  Contributors:
+    Troy Gerwien (https://github.com/yortus)
+    Melvin Groenhoff (https://github.com/mgroenhoff)
+    Cameron Yan (https://github.com/khell)
+    Lyanbin (https://github.com/Lyanbin)
+
+@types/babel__template@7.4.4
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/DefinitelyTyped/DefinitelyTyped.git
+  Homepage: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/babel__template
+  Author: None listed
+  Contributors:
+    Troy Gerwien (https://github.com/yortus)
+    Marvin Hagemeister (https://github.com/marvinhagemeister)
+    Melvin Groenhoff (https://github.com/mgroenhoff)
+    ExE Boss (https://github.com/ExE-Boss)
+
+@types/babel__traverse@7.28.0
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/DefinitelyTyped/DefinitelyTyped.git
+  Homepage: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/babel__traverse
+  Author: None listed
+  Contributors:
+    Troy Gerwien (https://github.com/yortus)
+    Marvin Hagemeister (https://github.com/marvinhagemeister)
+    Ryan Petrich (https://github.com/rpetrich)
+    Melvin Groenhoff (https://github.com/mgroenhoff)
+    Dean L. (https://github.com/dlgrit)
+    Ifiok Jr. (https://github.com/ifiokjr)
+    ExE Boss (https://github.com/ExE-Boss)
+    Daniel Tschinder (https://github.com/danez)
+
+@types/estree@1.0.8
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/DefinitelyTyped/DefinitelyTyped.git
+  Homepage: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/estree
+  Author: None listed
+  Contributors:
+    RReverser (https://github.com/RReverser)
+
+@types/node@24.3.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/DefinitelyTyped/DefinitelyTyped.git
+  Homepage: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node
+  Author: None listed
+  Contributors:
+    Microsoft TypeScript (https://github.com/Microsoft)
+    Alberto Schiabel (https://github.com/jkomyno)
+    Andrew Makarov (https://github.com/r3nya)
+    Benjamin Toueg (https://github.com/btoueg)
+    David Junger (https://github.com/touffy)
+    Mohsen Azimi (https://github.com/mohsen1)
+    Nikita Galkin (https://github.com/galkin)
+    Sebastian Silbermann (https://github.com/eps1lon)
+    Wilco Bakker (https://github.com/WilcoBakker)
+    Marcin Kopacz (https://github.com/chyzwar)
+    Trivikram Kamat (https://github.com/trivikr)
+    Junxiao Shi (https://github.com/yoursunny)
+    Ilia Baryshnikov (https://github.com/qwelias)
+    ExE Boss (https://github.com/ExE-Boss)
+    Piotr Błażejewicz (https://github.com/peterblazejewicz)
+    Anna Henningsen (https://github.com/addaleax)
+    Victor Perin (https://github.com/victorperin)
+    NodeJS Contributors (https://github.com/NodeJS)
+    Linus Unnebäck (https://github.com/LinusU)
+    wafuwafu13 (https://github.com/wafuwafu13)
+    Matteo Collina (https://github.com/mcollina)
+    Dmitry Semigradsky (https://github.com/Semigradsky)
+    René (https://github.com/Renegade334)
+    Yagiz Nizipli (https://github.com/anonrig)
+
+@vitejs/plugin-react@4.7.0
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/vitejs/vite-plugin-react.git
+  Homepage: https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#readme
+  Author: Evan You
+  Contributors:
+    Alec Larson
+    Arnaud Barré
+
+ajv@8.17.1
+  Approved by license
+  Terms: MIT
+  Repository: ajv-validator/ajv
+  Homepage: https://ajv.js.org
+  Author: Evgeny Poberezkin
+  Contributors: None listed
+
+ajv-formats@3.0.1
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/ajv-validator/ajv-formats.git
+  Homepage: https://github.com/ajv-validator/ajv-formats#readme
+  Author: Evgeny Poberezkin
+  Contributors: None listed
+
+atomically@2.0.3
+  Approved by package
+  Terms: Invalid license metadata
+  Repository: github:fabiospampinato/atomically
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+browserslist@4.25.4
+  Approved by license
+  Terms: MIT
+  Repository: browserslist/browserslist
+  Homepage: None listed
+  Author: Andrey Sitnik <andrey@sitnik.ru>
+  Contributors: None listed
+
+caniuse-lite@1.0.30001741
+  Approved by license
+  Terms: CC-BY-4.0
+  Repository: browserslist/caniuse-lite
+  Homepage: None listed
+  Author: Ben Briggs <beneb.info@gmail.com> (http://beneb.info)
+  Contributors: None listed
+
+chownr@3.0.0
+  Approved by license
+  Terms: BlueOak-1.0.0
+  Repository: git://github.com/isaacs/chownr.git
+  Homepage: None listed
+  Author: Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)
+  Contributors: None listed
+
+conf@14.0.0
+  Approved by license
+  Terms: MIT
+  Repository: sindresorhus/conf
+  Homepage: None listed
+  Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+  Contributors: None listed
+
+convert-source-map@2.0.0
+  Approved by license
+  Terms: MIT
+  Repository: git://github.com/thlorenz/convert-source-map.git
+  Homepage: https://github.com/thlorenz/convert-source-map
+  Author: Thorsten Lorenz <thlorenz@gmx.de> (http://thlorenz.com)
+  Contributors: None listed
+
+cookie@1.0.2
+  Approved by license
+  Terms: MIT
+  Repository: jshttp/cookie
+  Homepage: None listed
+  Author: Roman Shtylman <shtylman@gmail.com>
+  Contributors:
+    Douglas Christopher Wilson <doug@somethingdoug.com>
+
+debounce-fn@6.0.0
+  Approved by license
+  Terms: MIT
+  Repository: sindresorhus/debounce-fn
+  Homepage: None listed
+  Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+  Contributors: None listed
+
+debug@4.4.1
+  Approved by license
+  Terms: MIT
+  Repository: git://github.com/debug-js/debug.git
+  Homepage: None listed
+  Author: Josh Junon (https://github.com/qix-)
+  Contributors:
+    TJ Holowaychuk <tj@vision-media.ca>
+    Nathan Rajlich <nathan@tootallnate.net> (http://n8.io)
+    Andrew Rhyne <rhyneandrew@gmail.com>
+
+debug@2.6.9
+  Approved by license
+  Terms: MIT
+  Repository: git://github.com/visionmedia/debug.git
+  Homepage: None listed
+  Author: TJ Holowaychuk <tj@vision-media.ca>
+  Contributors:
+    Nathan Rajlich <nathan@tootallnate.net> (http://n8.io)
+    Andrew Rhyne <rhyneandrew@gmail.com>
+
+detect-libc@2.0.4
+  Approved by license
+  Terms: Apache-2.0
+  Repository: git://github.com/lovell/detect-libc
+  Homepage: None listed
+  Author: Lovell Fuller <npm@lovell.info>
+  Contributors:
+    Niklas Salmoukas <niklas@salmoukas.com>
+    Vinícius Lourenço <vinyygamerlol@gmail.com>
+
+dot-prop@9.0.0
+  Approved by license
+  Terms: MIT
+  Repository: sindresorhus/dot-prop
+  Homepage: None listed
+  Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+  Contributors: None listed
+
+electron-squirrel-startup@1.0.1
+  Approved by license
+  Terms: Apache-2.0
+  Repository: https://github.com/mongodb-js/electron-squirrel-startup.git
+  Homepage: http://github.com/mongodb-js/electron-squirrel-startup
+  Author: Lucas Hrabovsky <lucas@mongodb.com> (http://imlucas.com)
+  Contributors: None listed
+
+electron-store@10.1.0
+  Approved by license
+  Terms: MIT
+  Repository: sindresorhus/electron-store
+  Homepage: None listed
+  Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+  Contributors: None listed
+
+electron-to-chromium@1.5.214
+  Approved by license
+  Terms: ISC
+  Repository: https://github.com/kilian/electron-to-chromium/
+  Homepage: None listed
+  Author: Kilian Valkhof
+  Contributors: None listed
+
+enhanced-resolve@5.18.3
+  Approved by license
+  Terms: MIT
+  Repository: git://github.com/webpack/enhanced-resolve.git
+  Homepage: http://github.com/webpack/enhanced-resolve
+  Author: Tobias Koppers @sokra
+  Contributors: None listed
+
+env-paths@3.0.0
+  Approved by license
+  Terms: MIT
+  Repository: sindresorhus/env-paths
+  Homepage: None listed
+  Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+  Contributors: None listed
+
+esbuild@0.21.5
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/evanw/esbuild.git
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+escalade@3.2.0
+  Approved by license
+  Terms: MIT
+  Repository: lukeed/escalade
+  Homepage: None listed
+  Author: Luke Edwards <luke.edwards05@gmail.com> (https://lukeed.com)
+  Contributors: None listed
+
+fast-deep-equal@3.1.3
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/epoberezkin/fast-deep-equal.git
+  Homepage: https://github.com/epoberezkin/fast-deep-equal#readme
+  Author: Evgeny Poberezkin
+  Contributors: None listed
+
+fast-uri@3.1.0
+  Approved by license
+  Terms: BSD-3-Clause
+  Repository: git+https://github.com/fastify/fast-uri.git
+  Homepage: https://github.com/fastify/fast-uri
+  Author: Vincent Le Goff <vince.legoff@gmail.com> (https://github.com/zekth)
+  Contributors:
+    Matteo Collina <hello@matteocollina.com>
+    Gürgün Dayıoğlu <hey@gurgun.day> (https://heyhey.to/G)
+    Aras Abbasi <aras.abbasi@gmail.com>
+    Frazer Smith <frazer.dev@icloud.com> (https://github.com/fdawgs)
+
+framer-motion@12.23.24
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/motiondivision/motion/
+  Homepage: None listed
+  Author: Matt Perry
+  Contributors: None listed
+
+gensync@1.0.0-beta.2
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/loganfsmyth/gensync.git
+  Homepage: https://github.com/loganfsmyth/gensync
+  Author: Logan Smyth <loganfsmyth@gmail.com>
+  Contributors: None listed
+
+graceful-fs@4.2.11
+  Approved by license
+  Terms: ISC
+  Repository: https://github.com/isaacs/node-graceful-fs
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+jiti@2.5.1
+  Approved by license
+  Terms: MIT
+  Repository: unjs/jiti
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+js-tokens@4.0.0
+  Approved by license
+  Terms: MIT
+  Repository: lydell/js-tokens
+  Homepage: None listed
+  Author: Simon Lydell
+  Contributors: None listed
+
+jsesc@3.1.0
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/mathiasbynens/jsesc.git
+  Homepage: https://mths.be/jsesc
+  Author: Mathias Bynens (https://mathiasbynens.be/)
+  Contributors: None listed
+
+json-schema-traverse@1.0.0
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/epoberezkin/json-schema-traverse.git
+  Homepage: https://github.com/epoberezkin/json-schema-traverse#readme
+  Author: Evgeny Poberezkin
+  Contributors: None listed
+
+json-schema-typed@8.0.1
+  Approved by license
+  Terms: BSD-2-Clause
+  Repository: https://github.com/jrylan/json-schema-typed.git
+  Homepage: https://github.com/jrylan/json-schema-typed/tree/main/dist/node
+  Author: Jeremy Rylan (https://github.com/jrylan)
+  Contributors: None listed
+
+json5@2.2.3
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/json5/json5.git
+  Homepage: http://json5.org/
+  Author: Aseem Kishore <aseem.kishore@gmail.com>
+  Contributors:
+    Max Nanasy <max.nanasy@gmail.com>
+    Andrew Eisenberg <andrew@eisenberg.as>
+    Jordan Tucker <jordanbtucker@gmail.com>
+
+lightningcss@1.30.1
+  Approved by license
+  Terms: MPL-2.0
+  Repository: https://github.com/parcel-bundler/lightningcss.git
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+lightningcss-win32-x64-msvc@1.30.1
+  Approved by license
+  Terms: MPL-2.0
+  Repository: https://github.com/parcel-bundler/lightningcss.git
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+lru-cache@5.1.1
+  Approved by license
+  Terms: ISC
+  Repository: git://github.com/isaacs/node-lru-cache.git
+  Homepage: None listed
+  Author: Isaac Z. Schlueter <i@izs.me>
+  Contributors: None listed
+
+lucide-react@0.545.0
+  Approved by license
+  Terms: ISC
+  Repository: https://github.com/lucide-icons/lucide.git
+  Homepage: https://lucide.dev
+  Author: Eric Fennis
+  Contributors: None listed
+
+magic-string@0.30.18
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/rich-harris/magic-string.git
+  Homepage: None listed
+  Author: Rich Harris
+  Contributors: None listed
+
+mime@4.0.7
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/broofa/mime
+  Homepage: None listed
+  Author: Robert Kieffer <robert@broofa.com> (http://github.com/broofa)
+  Contributors:
+
+
+mimic-function@5.0.1
+  Approved by license
+  Terms: MIT
+  Repository: sindresorhus/mimic-function
+  Homepage: None listed
+  Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+  Contributors: None listed
+
+minipass@7.1.2
+  Approved by license
+  Terms: ISC
+  Repository: https://github.com/isaacs/minipass
+  Homepage: None listed
+  Author: Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)
+  Contributors: None listed
+
+minizlib@3.0.2
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/isaacs/minizlib.git
+  Homepage: None listed
+  Author: Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)
+  Contributors: None listed
+
+mkdirp@3.0.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/isaacs/node-mkdirp.git
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+motion@12.23.24
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/motiondivision/motion
+  Homepage: None listed
+  Author: Matt Perry
+  Contributors: None listed
+
+motion-dom@12.23.23
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/motiondivision/motion
+  Homepage: None listed
+  Author: Matt Perry
+  Contributors: None listed
+
+motion-utils@12.23.6
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/motiondivision/motion
+  Homepage: None listed
+  Author: Matt Perry
+  Contributors: None listed
+
+ms@2.1.3
+  Approved by license
+  Terms: MIT
+  Repository: vercel/ms
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+ms@2.0.0
+  Approved by license
+  Terms: MIT
+  Repository: zeit/ms
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+nanoid@3.3.11
+  Approved by license
+  Terms: MIT
+  Repository: ai/nanoid
+  Homepage: None listed
+  Author: Andrey Sitnik <andrey@sitnik.ru>
+  Contributors: None listed
+
+node-releases@2.0.20
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/chicoxyzzy/node-releases.git
+  Homepage: None listed
+  Author: Sergey Rubanov <chi187@gmail.com>
+  Contributors: None listed
+
+picocolors@1.1.1
+  Approved by license
+  Terms: ISC
+  Repository: alexeyraspopov/picocolors
+  Homepage: None listed
+  Author: Alexey Raspopov
+  Contributors: None listed
+
+postcss@8.5.6
+  Approved by license
+  Terms: MIT
+  Repository: postcss/postcss
+  Homepage: https://postcss.org/
+  Author: Andrey Sitnik <andrey@sitnik.ru>
+  Contributors: None listed
+
+react@19.1.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/facebook/react.git
+  Homepage: https://react.dev/
+  Author: None listed
+  Contributors: None listed
+
+react-dom@19.1.1
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/facebook/react.git
+  Homepage: https://react.dev/
+  Author: None listed
+  Contributors: None listed
+
+react-hook-form@7.65.0
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/react-hook-form/react-hook-form
+  Homepage: https://react-hook-form.com
+  Author: Beier(Bill) Luo <bluebill1049@hotmail.com>
+  Contributors: None listed
+
+react-refresh@0.17.0
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/facebook/react.git
+  Homepage: https://react.dev/
+  Author: None listed
+  Contributors: None listed
+
+react-router@7.8.2
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/remix-run/react-router
+  Homepage: None listed
+  Author: Remix Software <hello@remix.run>
+  Contributors: None listed
+
+react-router-dom@7.8.2
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/remix-run/react-router
+  Homepage: None listed
+  Author: Remix Software <hello@remix.run>
+  Contributors: None listed
+
+require-from-string@2.0.2
+  Approved by license
+  Terms: MIT
+  Repository: floatdrop/require-from-string
+  Homepage: None listed
+  Author: Vsevolod Strukchinsky <floatdrop@gmail.com> (github.com/floatdrop)
+  Contributors: None listed
+
+rollup@4.50.0
+  Approved by license
+  Terms: MIT
+  Repository: rollup/rollup
+  Homepage: https://rollupjs.org/
+  Author: Rich Harris
+  Contributors: None listed
+
+scheduler@0.26.0
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/facebook/react.git
+  Homepage: https://react.dev/
+  Author: None listed
+  Contributors: None listed
+
+semver@7.7.2
+  Approved by license
+  Terms: ISC
+  Repository: git+https://github.com/npm/node-semver.git
+  Homepage: None listed
+  Author: GitHub Inc.
+  Contributors: None listed
+
+semver@6.3.1
+  Approved by license
+  Terms: ISC
+  Repository: https://github.com/npm/node-semver.git
+  Homepage: None listed
+  Author: GitHub Inc.
+  Contributors: None listed
+
+set-cookie-parser@2.7.1
+  Approved by license
+  Terms: MIT
+  Repository: nfriedly/set-cookie-parser
+  Homepage: https://github.com/nfriedly/set-cookie-parser
+  Author: Nathan Friedly (http://nfriedly.com/)
+  Contributors: None listed
+
+source-map-js@1.2.1
+  Approved by license
+  Terms: BSD-3-Clause
+  Repository: 7rulnik/source-map-js
+  Homepage: https://github.com/7rulnik/source-map-js
+  Author: Valentin 7rulnik Semirulnik <v7rulnik@gmail.com>
+  Contributors:
+    Nick Fitzgerald <nfitzgerald@mozilla.com>
+    Tobias Koppers <tobias.koppers@googlemail.com>
+    Duncan Beevers <duncan@dweebd.com>
+    Stephen Crane <scrane@mozilla.com>
+    Ryan Seddon <seddon.ryan@gmail.com>
+    Miles Elam <miles.elam@deem.com>
+    Mihai Bazon <mihai.bazon@gmail.com>
+    Michael Ficarra <github.public.email@michael.ficarra.me>
+    Todd Wolfson <todd@twolfson.com>
+    Alexander Solovyov <alexander@solovyov.net>
+    Felix Gnass <fgnass@gmail.com>
+    Conrad Irwin <conrad.irwin@gmail.com>
+    usrbincc <usrbincc@yahoo.com>
+    David Glasser <glasser@davidglasser.net>
+    Chase Douglas <chase@newrelic.com>
+    Evan Wallace <evan.exe@gmail.com>
+    Heather Arthur <fayearthur@gmail.com>
+    Hugh Kennedy <hughskennedy@gmail.com>
+    David Glasser <glasser@davidglasser.net>
+    Simon Lydell <simon.lydell@gmail.com>
+    Jmeas Smith <jellyes2@gmail.com>
+    Michael Z Goddard <mzgoddard@gmail.com>
+    azu <azu@users.noreply.github.com>
+    John Gozde <john@gozde.ca>
+    Adam Kirkton <akirkton@truefitinnovation.com>
+    Chris Montgomery <christopher.montgomery@dowjones.com>
+    J. Ryan Stinnett <jryans@gmail.com>
+    Jack Herrington <jherrington@walmartlabs.com>
+    Chris Truter <jeffpalentine@gmail.com>
+    Daniel Espeset <daniel@danielespeset.com>
+    Jamie Wong <jamie.lf.wong@gmail.com>
+    Eddy Bruël <ejpbruel@mozilla.com>
+    Hawken Rives <hawkrives@gmail.com>
+    Gilad Peleg <giladp007@gmail.com>
+    djchie <djchie.dev@gmail.com>
+    Gary Ye <garysye@gmail.com>
+    Nicolas Lalevée <nicolas.lalevee@hibnet.org>
+
+stubborn-fs@1.2.5
+  Approved by package
+  Terms: Invalid license metadata
+  Repository: github:fabiospampinato/stubborn-fs
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+tailwindcss@4.1.13
+  Approved by license
+  Terms: MIT
+  Repository: https://github.com/tailwindlabs/tailwindcss.git
+  Homepage: https://tailwindcss.com
+  Author: None listed
+  Contributors: None listed
+
+tapable@2.2.3
+  Approved by license
+  Terms: MIT
+  Repository: http://github.com/webpack/tapable.git
+  Homepage: https://github.com/webpack/tapable
+  Author: Tobias Koppers @sokra
+  Contributors: None listed
+
+tar@7.4.3
+  Approved by license
+  Terms: ISC
+  Repository: https://github.com/isaacs/node-tar.git
+  Homepage: None listed
+  Author: Isaac Z. Schlueter
+  Contributors: None listed
+
+tslib@2.8.1
+  Approved by license
+  Terms: 0BSD
+  Repository: https://github.com/Microsoft/tslib.git
+  Homepage: https://www.typescriptlang.org/
+  Author: Microsoft Corp.
+  Contributors: None listed
+
+type-fest@4.41.0
+  Approved by license
+  Terms: (MIT OR CC0-1.0)
+  Repository: sindresorhus/type-fest
+  Homepage: None listed
+  Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+  Contributors: None listed
+
+uint8array-extras@1.5.0
+  Approved by license
+  Terms: MIT
+  Repository: sindresorhus/uint8array-extras
+  Homepage: None listed
+  Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
+  Contributors: None listed
+
+undici-types@7.10.0
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/nodejs/undici.git
+  Homepage: https://undici.nodejs.org
+  Author: None listed
+  Contributors:
+    Daniele Belardi (https://github.com/dnlup)
+    Ethan Arrowood (https://github.com/ethan-arrowood)
+    Matteo Collina (https://github.com/mcollina)
+    Matthew Aitken (https://github.com/KhafraDev)
+    Robert Nagy (https://github.com/ronag)
+    Szymon Marczak (https://github.com/szmarczak)
+    Tomas Della Vedova (https://github.com/delvedor)
+
+update-browserslist-db@1.1.3
+  Approved by license
+  Terms: MIT
+  Repository: browserslist/update-db
+  Homepage: None listed
+  Author: Andrey Sitnik <andrey@sitnik.ru>
+  Contributors: None listed
+
+vite@5.4.19
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/vitejs/vite.git
+  Homepage: https://vite.dev
+  Author: Evan You
+  Contributors: None listed
+
+when-exit@2.1.4
+  Approved by license
+  Terms: MIT
+  Repository: github:fabiospampinato/when-exit
+  Homepage: None listed
+  Author: None listed
+  Contributors: None listed
+
+yallist@3.1.1
+  Approved by license
+  Terms: ISC
+  Repository: git+https://github.com/isaacs/yallist.git
+  Homepage: None listed
+  Author: Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)
+  Contributors: None listed
+
+yallist@5.0.0
+  Approved by license
+  Terms: BlueOak-1.0.0
+  Repository: git+https://github.com/isaacs/yallist.git
+  Homepage: None listed
+  Author: Isaac Z. Schlueter <i@izs.me> (http://blog.izs.me/)
+  Contributors: None listed
+
+zod@4.1.12
+  Approved by license
+  Terms: MIT
+  Repository: git+https://github.com/colinhacks/zod.git
+  Homepage: https://zod.dev
+  Author: Colin McDonnell <zod@colinhacks.com>
+  Contributors: None listed
+

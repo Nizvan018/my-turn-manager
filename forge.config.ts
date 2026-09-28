@@ -6,13 +6,53 @@ import { MakerRpm } from '@electron-forge/maker-rpm';
 import { VitePlugin } from '@electron-forge/plugin-vite';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
+import { execSync } from "child_process";
 
 const config: ForgeConfig = {
+  hooks: {
+    prePackage: async () => {
+      console.log("Generating third-party licenses...")
+
+      try {
+        execSync("npm run generate-licenses", {
+          stdio: "inherit",
+          cwd: __dirname
+        });
+
+        console.log("Licenses generated successfully")
+      } catch (error) {
+        console.error("Error generating licenses:", error);
+        console.log("Continuing without updated licenses file")
+      }
+    }
+  },
   packagerConfig: {
     asar: true,
+    icon: "./public/icons/icon",
+    extraResource: [
+      "./LICENSES_THIRD_PARTY.txt"
+    ]
   },
   rebuildConfig: {},
-  makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
+  makers: [
+    new MakerSquirrel({
+      setupIcon: "./public/icons/icon.ico",
+      name: "my_turn_manager",
+      authors: "Nizvan Monteon Ricardez",
+      description: "Simple app for managing turns in stores"
+    }),
+    new MakerZIP({}, ['darwin']),
+    new MakerRpm({
+      options: {
+        icon: "./public/icons/icon.png"
+      }
+    }),
+    new MakerDeb({
+      options: {
+        icon: "./public/icons/icon.png"
+      }
+    })
+  ],
   plugins: [
     new VitePlugin({
       // `build` can specify multiple entry builds, which can be Main process, Preload scripts, Worker process, etc.
